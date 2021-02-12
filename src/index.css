@@ -34,9 +34,45 @@
   text-transform: uppercase;
   font-size: 1.5rem;
   cursor: pointer;
+  text-decoration: none;
   
 }
 
-.nav-link:hover {
+.nav-link:hover,
+.is-active
+ {
   background-color: #0f1220;
+}
+
+.no-wallet {
+ display: flex;
+  justify-content: center;
+  align-items: center; 
+  flex-direction: column;
+  padding: 20px;
+  margin-top: 20%;
+  font-size: 2.5rem;
+  text-align: center;
+}
+
+.action-btn {
+  display: inline-block;
+  background-color: #191D32;
+  text-align: center;
+  text-decoration: none;
+  font-size: 1.75rem;
+  border-radius: 3px;
+  cursor: pointer;
+  
+}
+
+.create-wallet-btn {
+  margin-top: 50px;
+  padding: 5px 50px;
+}
+
+.create-wallet-btn:hover {
+  background-color: #E6AF2E;
+  color: #0f1220;
+  border: 1px solid #0f1220;
 }
