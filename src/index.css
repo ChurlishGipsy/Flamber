@@ -15,7 +15,9 @@
 }
 
 .content {
-  background-color: #fff;
+  background-color:#fff;
+  overflow-y: auto;
+  
 }
 
 .navigation {
@@ -132,4 +134,15 @@ input {
   background-color: #191D32;
   border: none;
   font-size: unset;
+}
+
+.test {
+  text-align: center;
+}
+
+.assets-list {
+  width: 80%;
+  margin: 0 auto;
+  padding: 20px;
+  
 }
