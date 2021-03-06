@@ -1,13 +1,7 @@
 import { useState, useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import CreateWallet from './CreateWallet';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper} from '@material-ui/core';
+import ModelAssetList from './ModelAssetList'
 
-const useStyles = makeStyles({
-    table: {
-        
-    }
-})
 
 const Wallet = () => {
 
@@ -16,7 +10,6 @@ const Wallet = () => {
     const [error, setError] = useState(null);
     const [doesWalletExist, setDoesWalletExist] = useState(false);
     const [isBeingCreated, setIsBeingCreated] = useState(false);
-    const classes = useStyles();
     const createWallet = () => {
         setIsBeingCreated(true);
     };
@@ -37,33 +30,11 @@ const Wallet = () => {
     return ( 
         <div className="wallet">
             {userData && !isPending &&  doesWalletExist  &&
-                <div>
-                    <div className="assets-list">
-                        <TableContainer component={Paper}>
-                            <Table className={classes.table}>
-                                <TableHead>
-                                    <TableRow>
-                                        <TableCell align="center">Nazwa aktywa </TableCell>
-                                        <TableCell align="center">Skład [%]</TableCell>
-                                        <TableCell align="center">Skład [zł]</TableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    
-                                </TableBody>
-                            </Table>
-                        </TableContainer>
-                    </div>
-                    {/* {userData.modelWallet.map((asset) => (
-                 <div key={asset.id}>
-                     <p>{asset.name}</p>
-                  </div>
-                    ))} */}
-                </div>
+             <ModelAssetList user={userData}/>
             }
-            {!userData && !isPending &&  !doesWalletExist && !isBeingCreated &&
+            {userData && !isPending &&  !doesWalletExist && !isBeingCreated &&
             <div className="no-wallet">
-                <p className="text-info">
+                <p>
                     It seems you don't have a wallet.
                     <br></br>
                      Would you like to create it?  
@@ -74,7 +45,6 @@ const Wallet = () => {
             {!isPending &&  !doesWalletExist && isBeingCreated && 
                 <CreateWallet/>
             }
-            
         </div>
      );
 }

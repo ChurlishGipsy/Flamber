@@ -121,6 +121,20 @@
   justify-content: space-between;
 }
 
+.model-assets-buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 60%;;
+  margin: 0 auto;
+  padding: 30px 0;
+}
+
+.modal-body {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 input {
   font-size: 1.8rem;
 }
@@ -145,4 +159,11 @@ input {
   margin: 0 auto;
   padding: 20px;
   
+}
+
+.heading-info {
+  font-size: 2rem;
+  text-align: center;
+  padding: 3rem;
+  text-transform: uppercase;
 }
