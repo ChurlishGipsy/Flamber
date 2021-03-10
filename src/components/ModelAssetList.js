@@ -1,9 +1,10 @@
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper} from '@material-ui/core';
-import { makeStyles, withStyles} from '@material-ui/core/styles';
-import {Button, Modal} from '@material-ui/core';
+import { Button, Modal, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, TextField} from '@material-ui/core';
+import { makeStyles, withStyles, createMuiTheme} from '@material-ui/core/styles';
 import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
-const StyledTableCell = withStyles((theme) => ({
+
+const StyledTableCell = withStyles(() => ({
     head: {
       backgroundColor: '#EEE',
       fontSize: '1.3rem',
@@ -14,25 +15,43 @@ const StyledTableCell = withStyles((theme) => ({
     },
   }))(TableCell);
 
+  const CancelButton = withStyles(() => ({
+    root: {
+      color: 'red',
+      fontSize: '1.2rem',
+      fontWeight: 'bold',
+    },
+  }))(Button);
+
+  const MainButton = withStyles(() => ({
+    root: {
+      color: '#E6AF2E',
+      fontSize: '1.2rem',
+      fontWeight: 'bold',
+    },
+  }))(Button);
+
   const useStyles = makeStyles((theme) => ({
     paper: {
       position: 'absolute',
-      width: 400,
+      width: '50%',
       backgroundColor: theme.palette.background.paper,
       border: '2px solid #000',
       boxShadow: theme.shadows[5],
-      padding: theme.spacing(2, 4, 3),
+      padding: theme.spacing(1, 1, 1),
     },
     table: {
         minWidth: 500
     }
   }));
 
-
-const ModelAssetList = ({user}) => {
+const ModelAssetList = ({user, hasChanged, rerender}) => {
 
     const [open, setOpen] = useState(false);
+    const [isBeingEdited, setIsBeingEdited] = useState(false);
+    const [newAmount, setNewAmount] = useState(null);
     const classes = useStyles();
+
 
     const handleOpen = () => {
         setOpen(true);
@@ -40,13 +59,42 @@ const ModelAssetList = ({user}) => {
     
       const handleClose = () => {
         setOpen(false);
+        setIsBeingEdited(false);
       };
+
+      const handleEdit = () => {
+        setIsBeingEdited(true);
+      };
+
+
+      const handleSave = (e) => {
+        if (newAmount) {
+          e.preventDefault();          
+          fetch('http://localhost:8000/user', {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                doesWalletExist: user.doesWalletExist,
+                initialAssets: parseFloat(newAmount),
+                currentAssets: user.currentAssets,
+                modelWallet: user.modelWallet,
+                realWallet: user.realWallet
+              })
+            }).then(() => {
+              setNewAmount(null);
+              setIsBeingEdited(false);
+              setOpen(false);
+              hasChanged(!rerender); 
+          })
+        }
+      }
+
     
       const modalStyle = {
           top: '50%',
           left: '50%',
           transform: 'translate(-50%,-50%)'
-      }
+      };
 
     return ( 
         <div>
@@ -66,7 +114,7 @@ const ModelAssetList = ({user}) => {
                                     <TableRow key={asset.id}>
                                         <StyledTableCell align="center">{asset.name}</StyledTableCell>
                                         <StyledTableCell align="center">{asset.percentage}</StyledTableCell>
-                                        <StyledTableCell align="center">{asset.percentage * user.startingAssets / 100}</StyledTableCell>
+                                        <StyledTableCell align="center">{asset.percentage * user.initialAssets / 100}</StyledTableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>
@@ -74,23 +122,49 @@ const ModelAssetList = ({user}) => {
                     </TableContainer>
                 </div>
             <div className="model-assets-buttons">
-                <Button onClick={handleOpen}>Show Initial Assets</Button>
+                <MainButton onClick={handleOpen}>Show Initial Assets</MainButton>
                 <Modal
                     open={open}
-                    onClose={handleClose}
                     aria-labelledby="simple-modal-title"
                     aria-describedby="simple-modal-description"
+                    disableBackdropClick
                 >
                     <div style={modalStyle} className={classes.paper}>
-                        <h1>AAAAAAAAA</h1>
+                      {!isBeingEdited && 
+                      <div>
+                        <h1 className="modal-info">Initial Model Assets: <b>{user.initialAssets}</b> zł</h1>
+                        <div className="bottom-buttons">
+                            <CancelButton onClick={handleClose}>Cancel</CancelButton>
+                            <MainButton onClick={handleEdit}>Edit</MainButton>
+                        </div>
+                      </div>
+                      }
+                      {isBeingEdited && 
+                      <div>
+                        <h1 className="modal-info">Enter new amount:</h1>
+                          <div className="centered-container">
+                            <form onSubmit={handleSave}>
+                              <TextField
+                              color="primary"
+                              required
+                              variant="outlined"
+                               label="Amount"
+                               onChange={(e) => setNewAmount(e.target.value)}/>
+                            </form>
+                          </div>
+                          <div className="bottom-buttons">
+                            <CancelButton onClick={handleClose}>Cancel</CancelButton>
+                            <MainButton onClick={handleSave}>Save</MainButton>
+                          </div>
+                      </div>
+                      }
                     </div>
                 </Modal>
-                <Button>Edit Assets</Button>
-                <Button>Real Wallet</Button>
-                {/* <p className="heading-info">Initial assets:  &nbsp; {user.startingAssets} zł</p> */}
+                <MainButton>Edit Assets</MainButton>
+                <MainButton>Real Wallet</MainButton>
             </div>
         </div>
      );
-}
+};
  
 export default ModelAssetList;

@@ -23,8 +23,8 @@ const CreateWallet = () => {
                 </div>
                 
                 <div className="bottom-buttons">
-                    <Button>Anuluj</Button>
-                    <Button >Zapisz</Button>
+                    <Button>Cancel</Button>
+                    <Button >Save</Button>
                 </div>
             </form>
         </div>

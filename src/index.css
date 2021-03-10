@@ -4,8 +4,9 @@
 * {
   margin: 0;
   font-family: "Quicksand";
-  color: #E6AF2E;
+  /* color: #E6AF2E; */
 }
+
 
 .App {
   height: 100vh;
@@ -37,7 +38,7 @@
   font-size: 1.5rem;
   cursor: pointer;
   text-decoration: none;
-  
+  color: #E6AF2E;
 }
 
 .nav-link:hover,
@@ -75,6 +76,7 @@
 .create-wallet-btn {
   margin-top: 50px;
   padding: 5px 50px;
+  color: #E6AF2E;
 }
 
 .create-wallet-btn:hover {
@@ -98,6 +100,7 @@
 .title {
   text-align: center;
   padding: 50px 0;
+  color: #E6AF2E;
 }
 
 
@@ -119,6 +122,7 @@
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
+  color: #E6AF2E;
 }
 
 .model-assets-buttons {
@@ -139,9 +143,14 @@ input {
   font-size: 1.8rem;
 }
 
+.centered-container {
+  display: flex;
+  justify-content: center;
+}
 
 .label {
   font-size: 1.5rem;
+  color: #E6AF2E;
 }
 
 .add-btn {
@@ -150,9 +159,6 @@ input {
   font-size: unset;
 }
 
-.test {
-  text-align: center;
-}
 
 .assets-list {
   width: 80%;
@@ -166,4 +172,26 @@ input {
   text-align: center;
   padding: 3rem;
   text-transform: uppercase;
+  color: #E6AF2E;
+}
+
+.text-info {
+  color: #E6AF2E;
+}
+
+.modal-info {
+  font-size: 2.5rem;
+  text-align: center;
+  padding: 2rem;
+  text-transform: uppercase;
+  /* color: #000; */
+  font-weight: normal;
+}
+
+.centered {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
