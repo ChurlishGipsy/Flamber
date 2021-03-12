@@ -1,7 +1,7 @@
 {
   "user": {
-    "doesWalletExist": true,
-    "initialAssets": 100000,
+    "doesWalletExist": false,
+    "initialAssets": 10000,
     "currentAssets": 20000,
     "modelWallet": [
       {

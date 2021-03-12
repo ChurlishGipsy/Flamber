@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import CreateWallet from './CreateWallet';
-import ModelAssetList from './ModelAssetList'
+import ModelAssetList from './ModelAssetList';
 import {CircularProgress} from '@material-ui/core';
+import {Link, useHistory} from 'react-router-dom';
 
 
 const Wallet = () => {
@@ -11,21 +11,19 @@ const Wallet = () => {
     const [error, setError] = useState(null);
     const [doesWalletExist, setDoesWalletExist] = useState(false);
     const [isBeingCreated, setIsBeingCreated] = useState(false);
-    const [url, setUrl] = useState('http://localhost:8000/user')
     const createWallet = () => {
         setIsBeingCreated(true);
+        history.push('/create');
     };
     const [rerender, setRerender] = useState(false);
+    const history = useHistory();
 
-    // const [test, setTest] = useState(false)
-    // const hasChanged = () => {
-    //     setTest(true);
-    // }
+    
  
     
 
     useEffect(() => {
-        fetch(url)
+        fetch('http://localhost:8000/user')
         .then(res => {
             if (!res.ok) {
                 throw Error('Could not fetch the data for that resource');
@@ -45,7 +43,7 @@ const Wallet = () => {
             setError(err.message);
         })
 
-    },[url,rerender])
+    },[rerender])
 
     return ( 
         <div className="wallet">
@@ -61,11 +59,8 @@ const Wallet = () => {
                     <br></br>
                      Would you like to create it?  
                 </p>
-                <button className="action-btn create-wallet-btn" onClick={createWallet}>Create Wallet</button>
+                <Link to="/create" className="action-btn create-wallet-btn" onClick={createWallet}>Create Wallet</Link>
             </div>
-            }
-            {!isPending &&  !doesWalletExist && isBeingCreated && 
-                <CreateWallet/>
             }
         </div>
      );

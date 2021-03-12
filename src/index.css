@@ -149,8 +149,8 @@ input {
 }
 
 .label {
-  font-size: 1.5rem;
-  color: #E6AF2E;
+  font-size: 1.7rem;
+  font-weight: bold;
 }
 
 .add-btn {

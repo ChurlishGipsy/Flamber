@@ -1,10 +1,9 @@
 import { Button, Modal, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, TextField} from '@material-ui/core';
-import { makeStyles, withStyles, createMuiTheme} from '@material-ui/core/styles';
+import { makeStyles, withStyles} from '@material-ui/core/styles';
 import { useState } from 'react';
-import { useHistory } from 'react-router-dom';
 
 
-const StyledTableCell = withStyles(() => ({
+  const StyledTableCell = withStyles(() => ({
     head: {
       backgroundColor: '#EEE',
       fontSize: '1.3rem',
@@ -45,11 +44,19 @@ const StyledTableCell = withStyles(() => ({
     }
   }));
 
+  const modalStyle = {
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%,-50%)'
+  };
+
 const ModelAssetList = ({user, hasChanged, rerender}) => {
 
     const [open, setOpen] = useState(false);
     const [isBeingEdited, setIsBeingEdited] = useState(false);
     const [newAmount, setNewAmount] = useState(null);
+    const [helperText, setHelperText] = useState('');
+    const [error, setError] = useState(false)
     const classes = useStyles();
 
 
@@ -66,10 +73,15 @@ const ModelAssetList = ({user, hasChanged, rerender}) => {
         setIsBeingEdited(true);
       };
 
+      const onChange = (e) => {
+        setNewAmount(e.target.value);
+      }
+
 
       const handleSave = (e) => {
-        if (newAmount) {
-          e.preventDefault();          
+        e.preventDefault();          
+        if (!isNaN(newAmount)) {
+          setError(false);
           fetch('http://localhost:8000/user', {
             method: 'PUT',
             headers: {'Content-Type': 'application/json'},
@@ -86,20 +98,16 @@ const ModelAssetList = ({user, hasChanged, rerender}) => {
               setOpen(false);
               hasChanged(!rerender); 
           })
+        } else {
+          setHelperText('Invalid format. Please try again.')
+          setError(true);
         }
       }
-
-    
-      const modalStyle = {
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%,-50%)'
-      };
 
     return ( 
         <div>
             <div className="assets-list">
-                <h2 className="heading-info">MODEL ASSETS LIST</h2>
+                <h2 className="heading-info">MODEL WALLET ASSETS LIST</h2>
                     <TableContainer component={Paper}>
                         <Table className={classes.table}>
                             <TableHead>
@@ -114,7 +122,7 @@ const ModelAssetList = ({user, hasChanged, rerender}) => {
                                     <TableRow key={asset.id}>
                                         <StyledTableCell align="center">{asset.name}</StyledTableCell>
                                         <StyledTableCell align="center">{asset.percentage}</StyledTableCell>
-                                        <StyledTableCell align="center">{asset.percentage * user.initialAssets / 100}</StyledTableCell>
+                                        <StyledTableCell align="center">{(asset.percentage * user.initialAssets / 100).toFixed(2).toString().replace(/\./g, ',')}</StyledTableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>
@@ -149,7 +157,9 @@ const ModelAssetList = ({user, hasChanged, rerender}) => {
                               required
                               variant="outlined"
                                label="Amount"
-                               onChange={(e) => setNewAmount(e.target.value)}/>
+                               onChange={onChange}
+                               helperText={helperText}
+                               error={error}/>
                             </form>
                           </div>
                           <div className="bottom-buttons">
