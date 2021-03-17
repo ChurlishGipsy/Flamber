@@ -36,7 +36,6 @@ const Wallet = () => {
                 setDoesWalletExist(true);
             }
             setIsPending(false);
-            console.log('use effect ran');
         })
         .catch(err => {
             setIsPending(false);

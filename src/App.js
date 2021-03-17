@@ -1,9 +1,10 @@
 import './App.css';
 import Navigation from './components/Navigation';
 import Wallet from './components/Wallet';
-import History from './components/History';
+import Statistics from './components/Statistics';
 import Settings from './components/Settings';
 import CreateWallet from './components/CreateWallet';
+import EditModelAssets from './components/EditModelAssets';
 import {BrowserRouter as Router, Route, Switch } from 'react-router-dom'; 
 
 
@@ -18,14 +19,17 @@ function App() {
             <Route exact path="/">
               <Wallet/>
             </Route>
-            <Route path="/history">
-              <History/>
+            <Route path="/statistics">
+              <Statistics/>
             </Route>
             <Route path="/settings">
               <Settings/>
             </Route>
             <Route path="/create">
               <CreateWallet/>
+            </Route>
+            <Route path="/edit-assets">
+              <EditModelAssets/>
             </Route>
           </Switch> 
         </div>
