@@ -1,6 +1,8 @@
 const EditModelAssets = () => {
     return ( 
-        <div>test</div>
+        <div>
+            test
+        </div>
      );
 }
  
