@@ -1,32 +1,32 @@
 {
   "user": {
     "doesWalletExist": true,
-    "initialAssets": 10000,
+    "initialAssets": 100000,
     "currentAssets": null,
     "modelWallet": [
       {
-        "name": "test",
-        "percentage": 10,
+        "name": "Obligacje indeksowane inflacją",
+        "percentage": 50,
         "id": 1
       },
       {
-        "name": "test",
-        "percentage": 20,
+        "name": "ETF na rynki rozwinięte",
+        "percentage": 15,
         "id": 2
       },
       {
-        "name": "test",
-        "percentage": 5,
+        "name": "ETF na rynki wschodzące ",
+        "percentage": 15,
         "id": 3
       },
       {
-        "name": "test",
-        "percentage": 19,
+        "name": "Złoto ",
+        "percentage": 10,
         "id": 4
       },
       {
-        "name": "test",
-        "percentage": 46,
+        "name": "Akcje ",
+        "percentage": 10,
         "id": 5
       }
     ],

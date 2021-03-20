@@ -166,8 +166,15 @@ input {
   width: 80%;
   margin: 0 auto;
   padding: 20px;
-  
 }
+
+.edit-assets-container {
+  width: 80%;
+  display: flew;
+  flex-direction: column;
+  justify-content: center;
+}
+
 
 .heading-info {
   font-size: 2rem;
@@ -203,4 +210,5 @@ input {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }

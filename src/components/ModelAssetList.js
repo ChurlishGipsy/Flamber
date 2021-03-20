@@ -1,18 +1,19 @@
 import { Button, Modal, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, TextField} from '@material-ui/core';
 import { makeStyles, withStyles} from '@material-ui/core/styles';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 
-  const StyledTableCell = withStyles(() => ({
-    head: {
-      backgroundColor: '#EEE',
-      fontSize: '1.3rem',
-      fontWeight: 'bold'
-    },
-    body: {
-        fontSize: '1rem'
-    },
-  }))(TableCell);
+    const StyledTableCell = withStyles(() => ({
+      head: {
+        backgroundColor: '#EEE',
+        fontSize: '1.3rem',
+        fontWeight: 'bold'
+      },
+      body: {
+          fontSize: '1rem'
+      },
+    }))(TableCell);
 
   const CancelButton = withStyles(() => ({
     root: {
@@ -56,12 +57,12 @@ const ModelAssetList = ({user, hasChanged, rerender}) => {
     const [isBeingEdited, setIsBeingEdited] = useState(false);
     const [newAmount, setNewAmount] = useState(null);
     const [helperText, setHelperText] = useState('');
-    const [error, setError] = useState(false)
+    const [error, setError] = useState(false);
     const classes = useStyles();
-
+    
 
     const handleOpen = () => {
-        setOpen(true);
+        setOpen(true);      
       };
     
       const handleClose = () => {
@@ -79,27 +80,34 @@ const ModelAssetList = ({user, hasChanged, rerender}) => {
 
 
       const handleSave = (e) => {
-        e.preventDefault();          
+        e.preventDefault();      
+        console.log(newAmount);   
         if (!isNaN(newAmount)) {
-          setError(false);
-          fetch('http://localhost:8000/user', {
-            method: 'PUT',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                doesWalletExist: user.doesWalletExist,
-                initialAssets: parseFloat(newAmount),
-                currentAssets: user.currentAssets,
-                modelWallet: user.modelWallet,
-                realWallet: user.realWallet
-              })
-            }).then(() => {
-              setNewAmount(null);
-              setIsBeingEdited(false);
-              setOpen(false);
-              hasChanged(!rerender); 
-          })
+          if (newAmount !== '' && newAmount !== null) {
+            setError(false);
+            fetch('http://localhost:8000/user', {
+              method: 'PUT',
+              headers: {'Content-Type': 'application/json'},
+              body: JSON.stringify({
+                  doesWalletExist: user.doesWalletExist,
+                  initialAssets: parseFloat(newAmount),
+                  currentAssets: user.currentAssets,
+                  modelWallet: user.modelWallet,
+                  realWallet: user.realWallet
+                })
+              }).then(() => {
+                setNewAmount(null);
+                setIsBeingEdited(false);
+                setOpen(false);
+                hasChanged(!rerender); 
+            }) 
+          } else {
+            setHelperText('Please enter valid assets amount.');
+            setError(true);
+          }
+          
         } else {
-          setHelperText('Invalid format. Please try again.')
+          setHelperText('Invalid format. Please try again.');
           setError(true);
         }
       }
@@ -170,7 +178,12 @@ const ModelAssetList = ({user, hasChanged, rerender}) => {
                       }
                     </div>
                 </Modal>
-                <MainButton>Edit Assets</MainButton>
+                <Link style={{ textDecoration: 'none' }} to={{
+                  pathname: '/create',
+                  state: {
+                    userData: user
+                  }
+                }}><MainButton>Edit Assets</MainButton></Link>
                 <MainButton>Real Wallet</MainButton>
             </div>
         </div>

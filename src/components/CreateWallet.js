@@ -1,7 +1,7 @@
 import AddIcon from '@material-ui/icons/Add';
 import {Modal, TextField, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@material-ui/core';
 import { useState } from 'react'; 
-import {useHistory} from 'react-router-dom';
+import {useHistory, useLocation} from 'react-router-dom';
 import { makeStyles, withStyles} from '@material-ui/core/styles';
 import {CircularProgress} from '@material-ui/core';
 import ClearIcon from '@material-ui/icons/Clear';
@@ -55,12 +55,31 @@ const CancelButton = withStyles(() => ({
 
 const CreateWallet = () => {
 
+
+    const checkData = (location) => {
+        if (location.state !== undefined) {
+            return location.state.userData.modelWallet;
+        }
+        else {
+            return [];
+        }
+    }
+
+    const checkSum = (location) => {
+        if (location.state !== undefined ) {
+            let sum = 0;
+            for (const asset of location.state.userData.modelWallet) {
+                sum += asset.percentage;
+            }
+            return sum;
+        } else {
+            return 0;
+        }
+    }
     
-    const [modelWallet, setModelWallet] = useState([]);
     const [inputName, setInputName] = useState('');
     const [inputPercentage, setInputPercentage] = useState('')
     const [initialAssets, setInitialAssets] = useState('');
-    const [percentageSum, setPercentageSum] = useState(0);    
     const [nameHelperText, setNameHelperText] = useState('');
     const [initialAssetsHelperText, setInitialAssetsHelperText] = useState('')    
     const [percentageHelperText, setPercentageHelperText] = useState('');
@@ -70,12 +89,16 @@ const CreateWallet = () => {
     const [initialAssetsOpen, setInitialAssetsOpen] = useState(false);
     const [isPending, setIsPending] = useState(false);
     const history = useHistory();
+    const location = useLocation();
     const classes = useStyles();
-
+    const [modelWallet, setModelWallet] = useState(checkData(location));
+    const [percentageSum, setPercentageSum] = useState(checkSum(location));    
+    const [isBeingEdited, setIsBeingEdited] = useState(location.state ? true : false);
+    
 
     const handleAdd = (e) => {
         e.preventDefault();
-        if (isNaN((inputPercentage)) || inputPercentage === '0') {
+        if (isNaN((inputPercentage)) || inputPercentage === '0' || inputPercentage === '') {
             setPercentageHelperText('Invalid format. Please try again.');
             setPercentageError(true);
             setInputPercentage('');
@@ -90,6 +113,7 @@ const CreateWallet = () => {
             setInputName('');
         }
         else {
+
             const newAsset = {
                     name: inputName,
                     percentage: parseFloat(inputPercentage),
@@ -157,7 +181,26 @@ const CreateWallet = () => {
 
     const handleSave = (e) => {
         e.preventDefault();
-        setInitialAssetsOpen(true);
+        if (!isBeingEdited) {
+            setInitialAssetsOpen(true);
+        }
+        else {
+            setIsPending(true);
+            fetch('http://localhost:8000/user', {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                doesWalletExist: location.state.userData.doesWalletExist,
+                initialAssets: location.state.userData.initialAssets,
+                currentAssets: location.state.userData.currentAssets,
+                modelWallet: modelWallet,
+                realWallet: location.state.userData.realWallet
+                })
+            }).then(() => {
+            setIsPending(false);
+            history.push('/');
+                }) 
+        }
     }
 
 
@@ -165,9 +208,10 @@ const CreateWallet = () => {
     return (
         <div className="create-wallet-container">
             {!isPending && <div>
-            <h1 className="title">Create Model Wallet Asset List</h1>
+            {!isBeingEdited && <h1 className="title">Create Model Wallet</h1>}
+            {isBeingEdited && <h1 className="title">Edit Model Wallet</h1>}
             <form onSubmit={handleAdd}>
-                <div className="wallet-form">
+                {percentageSum !== 100 && <div className="wallet-form">
                     <p className="label">Asset name</p>
                     <p className="label">%</p>
                     <div></div>
@@ -187,7 +231,7 @@ const CreateWallet = () => {
                     onChange={(e) => setInputPercentage(e.target.value)}
                     margin="normal" />
                     <MainButton className="action-btn add-btn"  onClick={handleAdd}><AddIcon fontSize="large"/></MainButton>
-                </div>
+                </div>}
                 {modelWallet.length > 0 && 
                 <div className="assets-list">
                     <TableContainer component={Paper}>
@@ -215,16 +259,19 @@ const CreateWallet = () => {
             }
             <div className="bottom-buttons">
                     <CancelButton onClick={handleCancel}>Cancel</CancelButton>
-                    {modelWallet.length > 0 && <MainButton onClick={handleSave}>Continue</MainButton>}
-                    {modelWallet.length === 0 &&<MainButton disabled>Continue</MainButton>}
+                    {!isBeingEdited && modelWallet.length > 0 && <MainButton onClick={handleSave}>Continue</MainButton>}
+                    {!isBeingEdited &&modelWallet.length === 0 &&<MainButton disabled>Continue</MainButton>}
+                    {isBeingEdited && modelWallet.length === 0 &&<MainButton disabled>Save</MainButton>}
+                    {isBeingEdited && modelWallet.length > 0 && percentageSum !== 100 &&<MainButton disabled>Save</MainButton>}
+                    {isBeingEdited && modelWallet.length > 0 && percentageSum === 100 && <MainButton onClick={handleSave}>Save</MainButton>}
+
                 </div>
             </form>
             <Modal
                     open={initialAssetsOpen}
                     aria-labelledby="simple-modal-title"
                     aria-describedby="simple-modal-description"
-                    disableBackdropClick
-                >
+                    disableBackdropClick>
                     <div style={modalStyle} className={classes.paper}>
                       {percentageSum === 100 && <div>
                         <h1 className="modal-info">Enter initial model assets</h1>
@@ -248,7 +295,7 @@ const CreateWallet = () => {
                       </div>}
                       {percentageSum !== 100 && 
                       <div className="centered-container">
-                        <p class="modal-error-info">Your total model wallet assets percentage is not equal 100%! Please make adjustments and try again.</p>
+                        <p className="modal-error-info">Your total model wallet assets percentage is not equal 100%! Please make adjustments and try again.</p>
                         <MainButton onClick={handleModalClose}>Continue</MainButton>    
 
                       </div>
