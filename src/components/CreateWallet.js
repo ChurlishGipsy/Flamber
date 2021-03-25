@@ -1,10 +1,11 @@
 import AddIcon from '@material-ui/icons/Add';
 import {Modal, TextField, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@material-ui/core';
-import { useState } from 'react'; 
-import {useHistory, useLocation} from 'react-router-dom';
+import { useState, useContext } from 'react'; 
+import {useHistory} from 'react-router-dom';
 import { makeStyles, withStyles} from '@material-ui/core/styles';
 import {CircularProgress} from '@material-ui/core';
 import ClearIcon from '@material-ui/icons/Clear';
+import { UserContext } from '../contexts/UserContext';
 
 const StyledTableCell = withStyles(() => ({
     head: {
@@ -56,19 +57,19 @@ const CancelButton = withStyles(() => ({
 const CreateWallet = () => {
 
 
-    const checkData = (location) => {
-        if (location.state !== undefined) {
-            return location.state.userData.modelWallet;
+    const checkData = () => {
+        if (data) {
+            return data.modelWallet;
         }
         else {
             return [];
         }
     }
 
-    const checkSum = (location) => {
-        if (location.state !== undefined ) {
+    const checkSum = () => {
+        if (data) {
             let sum = 0;
-            for (const asset of location.state.userData.modelWallet) {
+            for (const asset of data.modelWallet) {
                 sum += asset.percentage;
             }
             return sum;
@@ -77,6 +78,7 @@ const CreateWallet = () => {
         }
     }
     
+    const { data } = useContext(UserContext);
     const [inputName, setInputName] = useState('');
     const [inputPercentage, setInputPercentage] = useState('')
     const [initialAssets, setInitialAssets] = useState('');
@@ -89,11 +91,10 @@ const CreateWallet = () => {
     const [initialAssetsOpen, setInitialAssetsOpen] = useState(false);
     const [isPending, setIsPending] = useState(false);
     const history = useHistory();
-    const location = useLocation();
     const classes = useStyles();
-    const [modelWallet, setModelWallet] = useState(checkData(location));
-    const [percentageSum, setPercentageSum] = useState(checkSum(location));    
-    const [isBeingEdited, setIsBeingEdited] = useState(location.state ? true : false);
+    const [modelWallet, setModelWallet] = useState(checkData());
+    const [percentageSum, setPercentageSum] = useState(checkSum());    
+    const [isBeingEdited, setIsBeingEdited] = useState(data.modelWallet.length ? true : false);
     
 
     const handleAdd = (e) => {
@@ -190,11 +191,11 @@ const CreateWallet = () => {
             method: 'PUT',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
-                doesWalletExist: location.state.userData.doesWalletExist,
-                initialAssets: location.state.userData.initialAssets,
-                currentAssets: location.state.userData.currentAssets,
+                doesWalletExist: data.doesWalletExist,
+                initialAssets: data.initialAssets,
+                currentAssets: data.currentAssets,
                 modelWallet: modelWallet,
-                realWallet: location.state.userData.realWallet
+                realWallet: data.realWallet
                 })
             }).then(() => {
             setIsPending(false);

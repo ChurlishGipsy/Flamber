@@ -1,7 +1,8 @@
 import { Button, Modal, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, TextField} from '@material-ui/core';
 import { makeStyles, withStyles} from '@material-ui/core/styles';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { UserContext } from '../contexts/UserContext';
 
 
     const StyledTableCell = withStyles(() => ({
@@ -51,8 +52,9 @@ import { Link } from 'react-router-dom';
     transform: 'translate(-50%,-50%)'
   };
 
-const ModelAssetList = ({user, hasChanged, rerender}) => {
+const ModelAssets = () => {
 
+    const {data, setData} = useContext(UserContext)
     const [open, setOpen] = useState(false);
     const [isBeingEdited, setIsBeingEdited] = useState(false);
     const [newAmount, setNewAmount] = useState(null);
@@ -74,32 +76,27 @@ const ModelAssetList = ({user, hasChanged, rerender}) => {
         setIsBeingEdited(true);
       };
 
-      const onChange = (e) => {
-        setNewAmount(e.target.value);
-      }
-
-
       const handleSave = (e) => {
         e.preventDefault();      
-        console.log(newAmount);   
         if (!isNaN(newAmount)) {
           if (newAmount !== '' && newAmount !== null) {
             setError(false);
+            const updatedData = {
+              doesWalletExist: data.doesWalletExist,
+              initialAssets: parseFloat(newAmount),
+              currentAssets: data.currentAssets,
+              modelWallet: data.modelWallet,
+              realWallet: data.realWallet
+            }
             fetch('http://localhost:8000/user', {
               method: 'PUT',
               headers: {'Content-Type': 'application/json'},
-              body: JSON.stringify({
-                  doesWalletExist: user.doesWalletExist,
-                  initialAssets: parseFloat(newAmount),
-                  currentAssets: user.currentAssets,
-                  modelWallet: user.modelWallet,
-                  realWallet: user.realWallet
-                })
+              body: JSON.stringify(updatedData)
               }).then(() => {
                 setNewAmount(null);
                 setIsBeingEdited(false);
                 setOpen(false);
-                hasChanged(!rerender); 
+                setData(updatedData)
             }) 
           } else {
             setHelperText('Please enter valid assets amount.');
@@ -126,11 +123,11 @@ const ModelAssetList = ({user, hasChanged, rerender}) => {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {user.modelWallet.map((asset) => (
+                                {data.modelWallet.map((asset) => (
                                     <TableRow key={asset.id}>
                                         <StyledTableCell align="center">{asset.name}</StyledTableCell>
                                         <StyledTableCell align="center">{asset.percentage}</StyledTableCell>
-                                        <StyledTableCell align="center">{(asset.percentage * user.initialAssets / 100).toFixed(2).toString().replace(/\./g, ',')}</StyledTableCell>
+                                        <StyledTableCell align="center">{(asset.percentage * data.initialAssets / 100).toFixed(2).toString().replace(/\./g, ',')}</StyledTableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>
@@ -148,7 +145,7 @@ const ModelAssetList = ({user, hasChanged, rerender}) => {
                     <div style={modalStyle} className={classes.paper}>
                       {!isBeingEdited && 
                       <div>
-                        <h1 className="modal-info">Initial Model Assets: <b>{user.initialAssets}</b> zł</h1>
+                        <h1 className="modal-info">Initial Model Assets: <b>{data.initialAssets}</b> zł</h1>
                         <div className="bottom-buttons">
                             <CancelButton onClick={handleClose}>Cancel</CancelButton>
                             <MainButton onClick={handleEdit}>Edit</MainButton>
@@ -165,7 +162,7 @@ const ModelAssetList = ({user, hasChanged, rerender}) => {
                               required
                               variant="outlined"
                                label="Amount"
-                               onChange={onChange}
+                               onChange={(e) => setNewAmount(e.target.value)}
                                helperText={helperText}
                                error={error}/>
                             </form>
@@ -181,7 +178,7 @@ const ModelAssetList = ({user, hasChanged, rerender}) => {
                 <Link style={{ textDecoration: 'none' }} to={{
                   pathname: '/create',
                   state: {
-                    userData: user
+                    userData: data
                   }
                 }}><MainButton>Edit Assets</MainButton></Link>
                 <MainButton>Real Wallet</MainButton>
@@ -190,4 +187,4 @@ const ModelAssetList = ({user, hasChanged, rerender}) => {
      );
 };
  
-export default ModelAssetList;
+export default ModelAssets;

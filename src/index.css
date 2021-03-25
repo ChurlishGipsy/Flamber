@@ -23,7 +23,7 @@
 
 .navigation {
   padding-top: 30%;
-  background-color: #191D32;
+  background: linear-gradient(rgb(10, 17, 66), rgb(25, 48, 150));
   display: flex;
   flex-direction: column;
     text-align: center;
@@ -44,7 +44,7 @@
 .nav-link:hover,
 .is-active
  {
-  background-color: #0f1220;
+  background-color: rgb(4, 10, 34);
 }
 
 .no-wallet {
@@ -211,4 +211,16 @@ input {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+
+.auth-background {
+  /* background:linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.8)), url(./assets/auth.jpg); */
+  background-size: cover;
+}
+
+.auth-container {
+  width: 30%;
+  height: 70%;
+  border-radius: 5px;
+  background: linear-gradient(rgba(25, 29, 50, 1), rgb(30, 48, 128));
 }

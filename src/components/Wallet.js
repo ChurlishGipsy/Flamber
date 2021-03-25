@@ -1,12 +1,13 @@
-import { useState, useEffect } from 'react';
-import ModelAssetList from './ModelAssetList';
+import { useState, useEffect, useContext } from 'react';
+import ModelAssets from './ModelAssets';
 import {CircularProgress} from '@material-ui/core';
 import {Link, useHistory} from 'react-router-dom';
+import { UserContext } from '../contexts/UserContext';
 
 
 const Wallet = () => {
 
-    const [userData, setUserData] = useState(null);
+    const {data, setData} = useContext(UserContext);
     const [isPending, setIsPending] = useState(true);
     const [error, setError] = useState(null);
     const [doesWalletExist, setDoesWalletExist] = useState(false);
@@ -18,10 +19,6 @@ const Wallet = () => {
     const [rerender, setRerender] = useState(false);
     const history = useHistory();
 
-    
- 
-    
-
     useEffect(() => {
         fetch('http://localhost:8000/user')
         .then(res => {
@@ -31,7 +28,7 @@ const Wallet = () => {
             return res.json();
         })
         .then((data) => {
-            setUserData(data);
+            setData(data);
             if (data.doesWalletExist === true) {
                 setDoesWalletExist(true);
             }
@@ -42,16 +39,16 @@ const Wallet = () => {
             setError(err.message);
         })
 
-    },[rerender])
+    },[rerender, setData])
 
     return ( 
         <div className="wallet">
             {error && <div>{ error }</div>}
             {isPending && <div className="centered"><CircularProgress size='6rem'/></div>}
-            {userData && !isPending &&  doesWalletExist  &&
-             <ModelAssetList hasChanged={setRerender} rerender={rerender}  user={userData}/>
+            {data && !isPending &&  doesWalletExist  &&
+             <ModelAssets hasChanged={setRerender} rerender={rerender}  user={data}/>
             }
-            {userData && !isPending &&  !doesWalletExist && !isBeingCreated &&
+            {data && !isPending &&  !doesWalletExist && !isBeingCreated &&
             <div className="no-wallet">
                 <p className="text-info">
                     It seems you don't have a wallet.
