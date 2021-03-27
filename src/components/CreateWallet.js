@@ -1,6 +1,6 @@
 import AddIcon from '@material-ui/icons/Add';
 import {Modal, TextField, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@material-ui/core';
-import { useState, useContext } from 'react'; 
+import { useState, useEffect,  useContext } from 'react'; 
 import {useHistory} from 'react-router-dom';
 import { makeStyles, withStyles} from '@material-ui/core/styles';
 import {CircularProgress} from '@material-ui/core';
@@ -54,31 +54,12 @@ const CancelButton = withStyles(() => ({
     transform: 'translate(-50%,-50%)'
   };
 
-const CreateWallet = () => {
-
-
-    const checkData = () => {
-        if (data) {
-            return data.modelWallet;
-        }
-        else {
-            return [];
-        }
-    }
-
-    const checkSum = () => {
-        if (data) {
-            let sum = 0;
-            for (const asset of data.modelWallet) {
-                sum += asset.percentage;
-            }
-            return sum;
-        } else {
-            return 0;
-        }
-    }
-    
-    const { data } = useContext(UserContext);
+  const CreateWallet = () => {
+      
+    const { data, setData } = useContext(UserContext);
+    const [modelWallet, setModelWallet] = useState([]);
+    const [isBeingEdited, setIsBeingEdited] = useState(false);
+    const [percentageSum, setPercentageSum] = useState(0);  
     const [inputName, setInputName] = useState('');
     const [inputPercentage, setInputPercentage] = useState('')
     const [initialAssets, setInitialAssets] = useState('');
@@ -90,12 +71,26 @@ const CreateWallet = () => {
     const [initialAssetsError, setInitialAssetsError] = useState(false);
     const [initialAssetsOpen, setInitialAssetsOpen] = useState(false);
     const [isPending, setIsPending] = useState(false);
+    
+      
     const history = useHistory();
     const classes = useStyles();
-    const [modelWallet, setModelWallet] = useState(checkData());
-    const [percentageSum, setPercentageSum] = useState(checkSum());    
-    const [isBeingEdited, setIsBeingEdited] = useState(data.modelWallet.length ? true : false);
-    
+
+    useEffect(() => {
+        if (!data) return;
+        else {
+            console.log('use effect ran');
+            setModelWallet(data.modelWallet);
+            if (data.modelWallet.length) {
+                setIsBeingEdited(true);
+            }
+            let sum = 0;
+            for (const asset of data.modelWallet) {
+                sum += asset.percentage;
+            }
+            setPercentageSum(sum);
+        }
+      }, [data]);
 
     const handleAdd = (e) => {
         e.preventDefault();
@@ -120,8 +115,10 @@ const CreateWallet = () => {
                     percentage: parseFloat(inputPercentage),
                     id: modelWallet.length + 1
                 }
+
                 setPercentageSum(percentageSum + parseFloat(inputPercentage));
                 setModelWallet([...modelWallet, newAsset]);
+                
                 setNameError(false);
                 setPercentageError(false);
                 setNameHelperText('');
@@ -156,17 +153,19 @@ const CreateWallet = () => {
         if (!isNaN(initialAssets) && initialAssets !== '') {
             setInitialAssetsError(false)
             setIsPending(true);
-            fetch('http://localhost:8000/user', {
-            method: 'PUT',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
+            const updatedData = {
                 doesWalletExist: true,
                 initialAssets: parseFloat(initialAssets),
                 currentAssets: null,
                 modelWallet: modelWallet,
                 realWallet: []
-                })
+                }
+            fetch('http://localhost:8000/user', {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(updatedData)
             }).then(() => {
+            setData(updatedData)
             setIsPending(false);
             history.push('/');
                 })
@@ -186,18 +185,20 @@ const CreateWallet = () => {
             setInitialAssetsOpen(true);
         }
         else {
-            setIsPending(true);
-            fetch('http://localhost:8000/user', {
-            method: 'PUT',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
+            const updatedWallet = {
                 doesWalletExist: data.doesWalletExist,
                 initialAssets: data.initialAssets,
                 currentAssets: data.currentAssets,
                 modelWallet: modelWallet,
                 realWallet: data.realWallet
-                })
+                }
+            setIsPending(true);
+            fetch('http://localhost:8000/user', {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(updatedWallet)
             }).then(() => {
+            setData(updatedWallet);
             setIsPending(false);
             history.push('/');
                 }) 
@@ -206,11 +207,11 @@ const CreateWallet = () => {
 
 
     
-    return (
+    return data ? (
         <div className="create-wallet-container">
             {!isPending && <div>
-            {!isBeingEdited && <h1 className="title">Create Model Wallet</h1>}
-            {isBeingEdited && <h1 className="title">Edit Model Wallet</h1>}
+            {modelWallet.length === 0 && <h1 className="title">Create Model Wallet</h1>}
+            {modelWallet.length > 0 && <h1 className="title">Edit Model Wallet</h1>}
             <form onSubmit={handleAdd}>
                 {percentageSum !== 100 && <div className="wallet-form">
                     <p className="label">Asset name</p>
@@ -308,6 +309,8 @@ const CreateWallet = () => {
             </div>}
             {isPending && <div className="centered"><CircularProgress size='6rem'/></div>}
         </div>
+     ) : (
+        <div className="centered"><CircularProgress size='6rem'/></div>
      );
 }
  

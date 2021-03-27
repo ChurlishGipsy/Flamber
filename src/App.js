@@ -4,6 +4,7 @@ import Wallet from './components/Wallet';
 import Statistics from './components/Statistics';
 import Settings from './components/Settings';
 import CreateWallet from './components/CreateWallet';
+import RealAssets from './components/RealAssets';
 import Auth from './components/Auth';
 import {BrowserRouter as Router, Route, Switch } from 'react-router-dom'; 
 import UserContextProvider from './contexts/UserContext';
@@ -31,6 +32,9 @@ function App() {
               </Route>
               <Route path="/create">
                 <CreateWallet/>
+              </Route>
+              <Route path="/real-assets">
+                <RealAssets/>
               </Route>
             </Switch> 
           </div>

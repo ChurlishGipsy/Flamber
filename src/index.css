@@ -81,7 +81,9 @@
 
 .create-wallet-btn:hover {
   background-color: #E6AF2E;
-  color: #0f1220;
+  background: linear-gradient(rgb(10, 17, 66), rgb(25, 48, 150));
+
+  color: #E6AF2E;
   /* border: 1px solid #0f1220; */
 }
 
@@ -177,9 +179,9 @@ input {
 
 
 .heading-info {
-  font-size: 2rem;
+  font-size: 2.4rem;
   text-align: center;
-  padding: 3rem;
+  padding: 2rem;
   text-transform: uppercase;
   color: #E6AF2E;
 }
@@ -221,6 +223,20 @@ input {
 .auth-container {
   width: 30%;
   height: 70%;
-  border-radius: 5px;
-  background: linear-gradient(rgba(25, 29, 50, 1), rgb(30, 48, 128));
+  border-radius: 20px;
+  background-color: #FFF;
+  box-shadow: 1px 1px 3px 3px #ccc;
+  /* background: linear-gradient(rgba(25, 29, 50, 1), rgb(30, 48, 128)); */
+}
+
+.auth-title {
+  height: 20%;
+  background: linear-gradient(rgb(10, 17, 66), rgb(25, 48, 150));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.2rem;
+  color: #E6AF2E;
+  border-radius: 20px 20px 0 0;
+  font-weight: bold;
 }

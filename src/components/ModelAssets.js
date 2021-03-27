@@ -1,8 +1,9 @@
 import { Button, Modal, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, TextField} from '@material-ui/core';
 import { makeStyles, withStyles} from '@material-ui/core/styles';
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { UserContext } from '../contexts/UserContext';
+import {CircularProgress} from '@material-ui/core';
 
 
     const StyledTableCell = withStyles(() => ({
@@ -62,6 +63,9 @@ const ModelAssets = () => {
     const [error, setError] = useState(false);
     const classes = useStyles();
     
+    useEffect(() => {
+      if (!data) return;
+    }, [data]);
 
     const handleOpen = () => {
         setOpen(true);      
@@ -109,10 +113,10 @@ const ModelAssets = () => {
         }
       }
 
-    return ( 
-        <div>
+    return data ? ( 
+        <div className="centered">
+            <h2 className="heading-info">MODEL WALLET ASSETS</h2>
             <div className="assets-list">
-                <h2 className="heading-info">MODEL WALLET ASSETS LIST</h2>
                     <TableContainer component={Paper}>
                         <Table className={classes.table}>
                             <TableHead>
@@ -175,16 +179,13 @@ const ModelAssets = () => {
                       }
                     </div>
                 </Modal>
-                <Link style={{ textDecoration: 'none' }} to={{
-                  pathname: '/create',
-                  state: {
-                    userData: data
-                  }
-                }}><MainButton>Edit Assets</MainButton></Link>
-                <MainButton>Real Wallet</MainButton>
+                <Link style={{ textDecoration: 'none' }} to="/create"><MainButton>Edit Assets</MainButton></Link>
+                <Link  style={{ textDecoration: 'none '}} to="/real-assets"><MainButton>Real Wallet</MainButton></Link>
             </div>
         </div>
-     );
+     ) : (
+      <div className="centered"><CircularProgress size='6rem'/></div>
+     )
 };
  
 export default ModelAssets;
