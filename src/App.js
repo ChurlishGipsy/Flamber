@@ -5,13 +5,27 @@ import Statistics from './components/Statistics';
 import Settings from './components/Settings';
 import CreateWallet from './components/CreateWallet';
 import RealAssets from './components/RealAssets';
+import UpdateAssets from './components/UpdateAssets';
 import Auth from './components/Auth';
 import {BrowserRouter as Router, Route, Switch } from 'react-router-dom'; 
 import UserContextProvider from './contexts/UserContext';
+import {createMuiTheme, ThemeProvider } from '@material-ui/core';
 
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+       main: '#E6AF2E',
+    },
+    secondary: {
+      main: 'rgb(25, 48, 150)'
+    }
+    
+  }
+})
 
 function App() {
   return (
+    <ThemeProvider theme={theme}>
     <Router>
       <div className="App">
         <Navigation/>
@@ -36,11 +50,15 @@ function App() {
               <Route path="/real-assets">
                 <RealAssets/>
               </Route>
+              <Route path="/update-assets">
+                <UpdateAssets/>
+              </Route>
             </Switch> 
           </div>
         </UserContextProvider>
       </div>
     </Router>
+    </ThemeProvider>
   );
 }
 

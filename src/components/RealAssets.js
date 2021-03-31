@@ -4,7 +4,7 @@ import { makeStyles, withStyles} from '@material-ui/core/styles';
 import {Link} from 'react-router-dom';
 import { Button, Modal, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, TextField} from '@material-ui/core';
 import {CircularProgress} from '@material-ui/core';
-
+import empty from '../assets/empty.png';
 
 const StyledTableCell = withStyles(() => ({
     head: {
@@ -27,11 +27,11 @@ const CancelButton = withStyles(() => ({
 
 const MainButton = withStyles(() => ({
   root: {
-    color: '#E6AF2E',
-    fontSize: '1.2rem',
+    fontSize: '1.3rem',
     fontWeight: 'bold',
   },
 }))(Button);
+
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -66,7 +66,7 @@ const RealAssets = () => {
         <div className="centered">
             <h2 className="heading-info">REAL ASSETS</h2>
             <div className="assets-list">
-            <TableContainer component={Paper}>
+            {data.realWallet.length > 0 && <TableContainer component={Paper}>
                         <Table className={classes.table}>
                             <TableHead>
                                 <TableRow>
@@ -85,11 +85,17 @@ const RealAssets = () => {
                                 ))}
                             </TableBody>
                         </Table>
-                    </TableContainer>
+                    </TableContainer>}
+                    {data.realWallet.length === 0 && 
+                    <div className="starting-message">
+                      <img src={empty} alt="Empty Wallet Icon"/>
+                      <p className="starting-info">It seems that your wallet is empty. To start, please update your model wallet with real value of assets you've invested in. </p> 
+                      
+                    </div>}
             </div>
             <div className="bottom-buttons">
-            <Link style={{ textDecoration: 'none' }} to="/"><MainButton>Model Wallet</MainButton></Link>
-                <MainButton>Update Wallet</MainButton>
+              <Link style={{ textDecoration: 'none' }} to="/"><MainButton color="primary" variant="text">Model Wallet</MainButton></Link>
+              <MainButton color="secondary" variant="contained">Update Wallet</MainButton>
             </div>
         </div>
      ) : (

@@ -1,7 +1,7 @@
 {
   "user": {
     "doesWalletExist": true,
-    "initialAssets": 100000,
+    "initialAssets": 50000,
     "currentAssets": null,
     "modelWallet": [
       {
@@ -20,12 +20,12 @@
         "id": 3
       },
       {
-        "name": "Złoto",
+        "name": "Akcje",
         "percentage": 10,
         "id": 4
       },
       {
-        "name": "Akcje ",
+        "name": "Złoto",
         "percentage": 10,
         "id": 5
       }

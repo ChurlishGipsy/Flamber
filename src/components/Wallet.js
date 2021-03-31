@@ -9,7 +9,6 @@ const Wallet = () => {
 
     const {data, setData} = useContext(UserContext);
     const [isPending, setIsPending] = useState(true);
-    const [error, setError] = useState(null);
     const [doesWalletExist, setDoesWalletExist] = useState(false);
     const [isBeingCreated, setIsBeingCreated] = useState(false);
     const createWallet = () => {

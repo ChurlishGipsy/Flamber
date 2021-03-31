@@ -27,9 +27,8 @@ import {CircularProgress} from '@material-ui/core';
 
   const MainButton = withStyles(() => ({
     root: {
-      color: '#E6AF2E',
       fontSize: '1.2rem',
-      fontWeight: 'bold',
+      fontWeight: 'bold'
     },
   }))(Button);
 
@@ -139,7 +138,7 @@ const ModelAssets = () => {
                     </TableContainer>
                 </div>
             <div className="model-assets-buttons">
-                <MainButton onClick={handleOpen}>Show Initial Assets</MainButton>
+                <MainButton color="primary" variant="text" onClick={handleOpen}>Show Initial Assets</MainButton>
                 <Modal
                     open={open}
                     aria-labelledby="simple-modal-title"
@@ -152,7 +151,7 @@ const ModelAssets = () => {
                         <h1 className="modal-info">Initial Model Assets: <b>{data.initialAssets}</b> zł</h1>
                         <div className="bottom-buttons">
                             <CancelButton onClick={handleClose}>Cancel</CancelButton>
-                            <MainButton onClick={handleEdit}>Edit</MainButton>
+                            <MainButton color="primary" variant="outlined" onClick={handleEdit}>Edit</MainButton>
                         </div>
                       </div>
                       }
@@ -173,14 +172,14 @@ const ModelAssets = () => {
                           </div>
                           <div className="bottom-buttons">
                             <CancelButton onClick={handleClose}>Cancel</CancelButton>
-                            <MainButton onClick={handleSave}>Save</MainButton>
+                            <MainButton color="primary" variant="outlined" onClick={handleSave}>Save</MainButton>
                           </div>
                       </div>
                       }
                     </div>
                 </Modal>
-                <Link style={{ textDecoration: 'none' }} to="/create"><MainButton>Edit Assets</MainButton></Link>
-                <Link  style={{ textDecoration: 'none '}} to="/real-assets"><MainButton>Real Wallet</MainButton></Link>
+                <Link style={{ textDecoration: 'none' }} to="/create"><MainButton color="primary" variant="text">Edit Assets</MainButton></Link>
+                <Link  style={{ textDecoration: 'none '}} to="/real-assets"><MainButton color="primary" variant="text">Real Wallet</MainButton></Link>
             </div>
         </div>
      ) : (

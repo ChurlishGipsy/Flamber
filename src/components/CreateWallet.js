@@ -28,7 +28,6 @@ const CancelButton = withStyles(() => ({
 
   const MainButton = withStyles(() => ({
     root: {
-      color: '#E6AF2E',
       fontSize: '1.5rem',
       fontWeight: 'bold',
     },
@@ -232,7 +231,7 @@ const CancelButton = withStyles(() => ({
                     error={percentageError}
                     onChange={(e) => setInputPercentage(e.target.value)}
                     margin="normal" />
-                    <MainButton className="action-btn add-btn"  onClick={handleAdd}><AddIcon fontSize="large"/></MainButton>
+                    <MainButton color="primary" className="action-btn add-btn"  onClick={handleAdd}><AddIcon fontSize="large"/></MainButton>
                 </div>}
                 {modelWallet.length > 0 && 
                 <div className="assets-list">
@@ -261,11 +260,11 @@ const CancelButton = withStyles(() => ({
             }
             <div className="bottom-buttons">
                     <CancelButton onClick={handleCancel}>Cancel</CancelButton>
-                    {!isBeingEdited && modelWallet.length > 0 && <MainButton onClick={handleSave}>Continue</MainButton>}
+                    {!isBeingEdited && modelWallet.length > 0 && <MainButton color="primary" onClick={handleSave}>Continue</MainButton>}
                     {!isBeingEdited &&modelWallet.length === 0 &&<MainButton disabled>Continue</MainButton>}
                     {isBeingEdited && modelWallet.length === 0 &&<MainButton disabled>Save</MainButton>}
                     {isBeingEdited && modelWallet.length > 0 && percentageSum !== 100 &&<MainButton disabled>Save</MainButton>}
-                    {isBeingEdited && modelWallet.length > 0 && percentageSum === 100 && <MainButton onClick={handleSave}>Save</MainButton>}
+                    {isBeingEdited && modelWallet.length > 0 && percentageSum === 100 && <MainButton color="primary" variant="outlined" onClick={handleSave}>Save</MainButton>}
 
                 </div>
             </form>
@@ -292,13 +291,13 @@ const CancelButton = withStyles(() => ({
                         </div>
                         <div className="bottom-buttons">
                             <CancelButton onClick={handleModalClose}>Cancel</CancelButton>
-                            <MainButton onClick={handleAssetsSave}>Save</MainButton>
+                            <MainButton color="primary" onClick={handleAssetsSave}>Save</MainButton>
                         </div>
                       </div>}
                       {percentageSum !== 100 && 
                       <div className="centered-container">
                         <p className="modal-error-info">Your total model wallet assets percentage is not equal 100%! Please make adjustments and try again.</p>
-                        <MainButton onClick={handleModalClose}>Continue</MainButton>    
+                        <MainButton color="primary" onClick={handleModalClose}>Continue</MainButton>    
 
                       </div>
                       }
