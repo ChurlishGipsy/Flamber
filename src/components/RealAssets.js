@@ -2,7 +2,7 @@ import { useContext, useEffect } from 'react';
 import { UserContext } from '../contexts/UserContext';
 import { makeStyles, withStyles} from '@material-ui/core/styles';
 import {Link} from 'react-router-dom';
-import { Button, Modal, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, TextField} from '@material-ui/core';
+import { Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper} from '@material-ui/core';
 import {CircularProgress} from '@material-ui/core';
 import empty from '../assets/empty.png';
 
@@ -17,13 +17,6 @@ const StyledTableCell = withStyles(() => ({
     },
   }))(TableCell);
 
-const CancelButton = withStyles(() => ({
-  root: {
-    color: 'red',
-    fontSize: '1.2rem',
-    fontWeight: 'bold',
-  },
-}))(Button);
 
 const MainButton = withStyles(() => ({
   root: {
@@ -47,11 +40,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const modalStyle = {
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%,-50%)'
-};
+
 
 const RealAssets = () => {
     const {data} = useContext(UserContext);
@@ -59,6 +48,7 @@ const RealAssets = () => {
 
     useEffect(() => {
       if (!data) return;
+      else console.log(data);
     }, [data]);
 
 
@@ -66,27 +56,30 @@ const RealAssets = () => {
         <div className="centered">
             <h2 className="heading-info">REAL ASSETS</h2>
             <div className="assets-list">
-            {data.realWallet.length > 0 && <TableContainer component={Paper}>
+            {data.realWalletUpdates.length > 0 && <TableContainer component={Paper}>
                         <Table className={classes.table}>
                             <TableHead>
                                 <TableRow>
-                                    <StyledTableCell align="center">Model Asset Name </StyledTableCell>
-                                    <StyledTableCell align="center">Composition %</StyledTableCell>
-                                    <StyledTableCell align="center">Composition zł</StyledTableCell>
+                                    <StyledTableCell align="center">Asset Name </StyledTableCell>
+                                    <StyledTableCell align="center">Value</StyledTableCell>
+                                    <StyledTableCell align="center">Composition</StyledTableCell>
+                                    <StyledTableCell align="center">Deviation</StyledTableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {data.modelWallet.map((asset) => (
+                                {data.realWalletUpdates[data.realWalletUpdates.length - 1].realWallet.map((asset) => (
                                     <TableRow key={asset.id}>
                                         <StyledTableCell align="center">{asset.name}</StyledTableCell>
-                                        <StyledTableCell align="center">{asset.percentage}</StyledTableCell>
-                                        <StyledTableCell align="center">{(asset.percentage * data.initialAssets / 100).toFixed(2).toString().replace(/\./g, ',')}</StyledTableCell>
+                                        <StyledTableCell align="center">{asset.value.toFixed(2).toString().replace(/\./g, ',')} zł</StyledTableCell>
+                                        <StyledTableCell align="center">{100*(asset.value / data.realWalletUpdates[data.realWalletUpdates.length - 1].currentAssets).toFixed(4) } %</StyledTableCell>
+                                        <StyledTableCell align="center"></StyledTableCell>
+                                        {/* <StyledTableCell align="center">{(asset.percentage * data.initialAssets / 100).toFixed(2).toString().replace(/\./g, ',')}</StyledTableCell> */}
                                     </TableRow>
                                 ))}
                             </TableBody>
                         </Table>
                     </TableContainer>}
-                    {data.realWallet.length === 0 && 
+                    {data.realWalletUpdates.length === 0 && 
                     <div className="starting-message">
                       <img src={empty} alt="Empty Wallet Icon"/>
                       <p className="starting-info">It seems that your wallet is empty. To start, please update your model wallet with real value of assets you've invested in. </p> 
@@ -95,7 +88,7 @@ const RealAssets = () => {
             </div>
             <div className="bottom-buttons">
               <Link style={{ textDecoration: 'none' }} to="/"><MainButton color="primary" variant="text">Model Wallet</MainButton></Link>
-              <MainButton color="secondary" variant="contained">Update Wallet</MainButton>
+              <Link style={{ textDecoration: 'none' }} to="/update-assets"><MainButton color="secondary" variant="contained">Update Assets</MainButton></Link>
             </div>
         </div>
      ) : (

@@ -78,7 +78,6 @@ const CancelButton = withStyles(() => ({
     useEffect(() => {
         if (!data) return;
         else {
-            console.log('use effect ran');
             setModelWallet(data.modelWallet);
             if (data.modelWallet.length) {
                 setIsBeingEdited(true);
@@ -155,9 +154,8 @@ const CancelButton = withStyles(() => ({
             const updatedData = {
                 doesWalletExist: true,
                 initialAssets: parseFloat(initialAssets),
-                currentAssets: null,
                 modelWallet: modelWallet,
-                realWallet: []
+                realWalletUpdates: []
                 }
             fetch('http://localhost:8000/user', {
             method: 'PUT',
@@ -187,9 +185,8 @@ const CancelButton = withStyles(() => ({
             const updatedWallet = {
                 doesWalletExist: data.doesWalletExist,
                 initialAssets: data.initialAssets,
-                currentAssets: data.currentAssets,
                 modelWallet: modelWallet,
-                realWallet: data.realWallet
+                realWalletUpdates: data.realWalletUpdates
                 }
             setIsPending(true);
             fetch('http://localhost:8000/user', {
@@ -260,11 +257,11 @@ const CancelButton = withStyles(() => ({
             }
             <div className="bottom-buttons">
                     <CancelButton onClick={handleCancel}>Cancel</CancelButton>
-                    {!isBeingEdited && modelWallet.length > 0 && <MainButton color="primary" onClick={handleSave}>Continue</MainButton>}
+                    {!isBeingEdited && modelWallet.length > 0 && <MainButton color="secondary" variant="contained" onClick={handleSave}>Continue</MainButton>}
                     {!isBeingEdited &&modelWallet.length === 0 &&<MainButton disabled>Continue</MainButton>}
                     {isBeingEdited && modelWallet.length === 0 &&<MainButton disabled>Save</MainButton>}
                     {isBeingEdited && modelWallet.length > 0 && percentageSum !== 100 &&<MainButton disabled>Save</MainButton>}
-                    {isBeingEdited && modelWallet.length > 0 && percentageSum === 100 && <MainButton color="primary" variant="outlined" onClick={handleSave}>Save</MainButton>}
+                    {isBeingEdited && modelWallet.length > 0 && percentageSum === 100 && <MainButton color="secondary" variant="contained" onClick={handleSave}>Save</MainButton>}
 
                 </div>
             </form>

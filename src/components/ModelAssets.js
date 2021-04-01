@@ -87,9 +87,8 @@ const ModelAssets = () => {
             const updatedData = {
               doesWalletExist: data.doesWalletExist,
               initialAssets: parseFloat(newAmount),
-              currentAssets: data.currentAssets,
               modelWallet: data.modelWallet,
-              realWallet: data.realWallet
+              realWalletUpdates: data.realWalletUpdates
             }
             fetch('http://localhost:8000/user', {
               method: 'PUT',
@@ -151,7 +150,7 @@ const ModelAssets = () => {
                         <h1 className="modal-info">Initial Model Assets: <b>{data.initialAssets}</b> zł</h1>
                         <div className="bottom-buttons">
                             <CancelButton onClick={handleClose}>Cancel</CancelButton>
-                            <MainButton color="primary" variant="outlined" onClick={handleEdit}>Edit</MainButton>
+                            <MainButton color="secondary" variant="contained" onClick={handleEdit}>Edit</MainButton>
                         </div>
                       </div>
                       }
@@ -172,7 +171,7 @@ const ModelAssets = () => {
                           </div>
                           <div className="bottom-buttons">
                             <CancelButton onClick={handleClose}>Cancel</CancelButton>
-                            <MainButton color="primary" variant="outlined" onClick={handleSave}>Save</MainButton>
+                            <MainButton color="secondary" variant="contained" onClick={handleSave}>Save</MainButton>
                           </div>
                       </div>
                       }

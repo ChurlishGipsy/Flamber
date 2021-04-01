@@ -17,7 +17,6 @@ const Settings = () => {
         const emptyData = {
             doesWalletExist: false,
             initialAssets: null,
-            currentAssets: null,
             modelWallet: [],
             realWallet: []
         }

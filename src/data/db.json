@@ -1,8 +1,7 @@
 {
   "user": {
     "doesWalletExist": true,
-    "initialAssets": 50000,
-    "currentAssets": null,
+    "initialAssets": 10000,
     "modelWallet": [
       {
         "name": "Obligacje indeksowane inflacją",
@@ -30,6 +29,69 @@
         "id": 5
       }
     ],
-    "realWallet": []
+    "realWalletUpdates": [
+      {
+        "realWallet": [
+          {
+            "name": "Obligacje indeksowane inflacją",
+            "value": 100,
+            "id": 1
+          },
+          {
+            "name": "ETF na rynki rozwinięte",
+            "value": 2000.2,
+            "id": 2
+          },
+          {
+            "name": "ETF na rynki wschodzące",
+            "value": 1000000,
+            "id": 3
+          },
+          {
+            "name": "Akcje",
+            "value": 4000,
+            "id": 4
+          },
+          {
+            "name": "Złoto",
+            "value": 1000,
+            "id": 5
+          }
+        ],
+        "date": "1/4/2021",
+        "currentAssets": 1007100.2
+      },
+      {
+        "realWallet": [
+          {
+            "name": "Obligacje indeksowane inflacją",
+            "value": 5000,
+            "id": 1
+          },
+          {
+            "name": "ETF na rynki rozwinięte",
+            "value": 1500,
+            "id": 2
+          },
+          {
+            "name": "ETF na rynki wschodzące",
+            "value": 1500,
+            "id": 3
+          },
+          {
+            "name": "Akcje",
+            "value": 1500,
+            "id": 4
+          },
+          {
+            "name": "Złoto",
+            "value": 500,
+            "id": 5
+          }
+        ],
+        "date": "1/4/2021",
+        "currentAssets": 10000
+      }
+    ]
   }
 }

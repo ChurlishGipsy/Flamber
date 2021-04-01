@@ -1,6 +1,6 @@
 const Statistics = () => {
     return ( 
-        <div></div>
+        <div>Test</div>
      );
 }
  
