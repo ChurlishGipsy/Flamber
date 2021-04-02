@@ -5,6 +5,9 @@ import {Link} from 'react-router-dom';
 import { Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper} from '@material-ui/core';
 import {CircularProgress} from '@material-ui/core';
 import empty from '../assets/empty.png';
+import TrendingUpIcon from '@material-ui/icons/TrendingUp';
+import TrendingDownIcon from '@material-ui/icons/TrendingDown';
+import DragHandleIcon from '@material-ui/icons/DragHandle';
 
 const StyledTableCell = withStyles(() => ({
     head: {
@@ -64,6 +67,7 @@ const RealAssets = () => {
                                     <StyledTableCell align="center">Value</StyledTableCell>
                                     <StyledTableCell align="center">Composition</StyledTableCell>
                                     <StyledTableCell align="center">Deviation</StyledTableCell>
+                                    <StyledTableCell align="center">Deviation Value</StyledTableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -71,9 +75,18 @@ const RealAssets = () => {
                                     <TableRow key={asset.id}>
                                         <StyledTableCell align="center">{asset.name}</StyledTableCell>
                                         <StyledTableCell align="center">{asset.value.toFixed(2).toString().replace(/\./g, ',')} zł</StyledTableCell>
-                                        <StyledTableCell align="center">{100*(asset.value / data.realWalletUpdates[data.realWalletUpdates.length - 1].currentAssets).toFixed(4) } %</StyledTableCell>
-                                        <StyledTableCell align="center"></StyledTableCell>
-                                        {/* <StyledTableCell align="center">{(asset.percentage * data.initialAssets / 100).toFixed(2).toString().replace(/\./g, ',')}</StyledTableCell> */}
+                                        <StyledTableCell align="center">{100*(asset.value / data.realWalletUpdates[data.realWalletUpdates.length - 1].currentAssets).toFixed(3) } %</StyledTableCell>
+                                        <StyledTableCell align="center">
+                                          {100*(asset.value / data.realWalletUpdates[data.realWalletUpdates.length - 1].currentAssets).toFixed(4) > data.modelWallet[asset.id-1].percentage 
+                                          && <TrendingUpIcon  style={{ color: '#00b418' }}/> }
+                                          {100*(asset.value / data.realWalletUpdates[data.realWalletUpdates.length - 1].currentAssets).toFixed(4) === data.modelWallet[asset.id-1].percentage 
+                                          && <DragHandleIcon style={{ color: '#E6AF2E'}}/>}
+                                          {100*(asset.value / data.realWalletUpdates[data.realWalletUpdates.length - 1].currentAssets).toFixed(4) < data.modelWallet[asset.id-1].percentage 
+                                          && <TrendingDownIcon style={{ color: '#ff0000' }}/>}
+                                        </StyledTableCell>
+                                        <StyledTableCell align="center">
+                                            {(asset.value - data.realWalletUpdates[data.realWalletUpdates.length - 1].currentAssets * (data.modelWallet[asset.id-1].percentage/100)).toFixed(2).toString().replace(/\./g, ',')} zł
+                                        </StyledTableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>
@@ -94,6 +107,6 @@ const RealAssets = () => {
      ) : (
       <div className="centered"><CircularProgress size='6rem'/></div>
      );
-}
+};
  
 export default RealAssets;

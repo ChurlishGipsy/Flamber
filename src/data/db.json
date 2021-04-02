@@ -34,48 +34,48 @@
         "realWallet": [
           {
             "name": "Obligacje indeksowane inflacją",
-            "value": 100,
+            "value": 12000,
             "id": 1
           },
           {
             "name": "ETF na rynki rozwinięte",
-            "value": 2000.2,
+            "value": 2000,
             "id": 2
           },
           {
             "name": "ETF na rynki wschodzące",
-            "value": 1000000,
+            "value": 2000,
             "id": 3
           },
           {
             "name": "Akcje",
-            "value": 4000,
+            "value": 1500,
             "id": 4
           },
           {
             "name": "Złoto",
-            "value": 1000,
+            "value": 0,
             "id": 5
           }
         ],
         "date": "1/4/2021",
-        "currentAssets": 1007100.2
+        "currentAssets": 17500
       },
       {
         "realWallet": [
           {
             "name": "Obligacje indeksowane inflacją",
-            "value": 5000,
+            "value": 12000,
             "id": 1
           },
           {
             "name": "ETF na rynki rozwinięte",
-            "value": 1500,
+            "value": 2000,
             "id": 2
           },
           {
             "name": "ETF na rynki wschodzące",
-            "value": 1500,
+            "value": 2000,
             "id": 3
           },
           {
@@ -85,12 +85,43 @@
           },
           {
             "name": "Złoto",
-            "value": 500,
+            "value": 2500,
             "id": 5
           }
         ],
         "date": "1/4/2021",
-        "currentAssets": 10000
+        "currentAssets": 20000
+      },
+      {
+        "realWallet": [
+          {
+            "name": "Obligacje indeksowane inflacją",
+            "value": 10000,
+            "id": 1
+          },
+          {
+            "name": "ETF na rynki rozwinięte",
+            "value": 0,
+            "id": 2
+          },
+          {
+            "name": "ETF na rynki wschodzące",
+            "value": 0,
+            "id": 3
+          },
+          {
+            "name": "Akcje",
+            "value": 1379.8,
+            "id": 4
+          },
+          {
+            "name": "Złoto",
+            "value": 0,
+            "id": 5
+          }
+        ],
+        "date": "1/4/2021",
+        "currentAssets": 11379.8
       }
     ]
   }

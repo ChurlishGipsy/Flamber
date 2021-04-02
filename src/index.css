@@ -15,7 +15,7 @@
   height: 100vh;
   width: 100vw;
   display: grid;
-  grid-template-columns: 20vw auto;
+  grid-template-columns: 15vw auto;
 }
 
 .content {
@@ -25,11 +25,15 @@
 }
 
 .navigation {
-  padding-top: 30%;
   background: linear-gradient(rgb(10, 17, 66), rgb(25, 48, 150));
   display: flex;
   flex-direction: column;
     text-align: center;
+}
+
+.logo-background {
+  padding: 30px;
+  color: #E6AF2E;
 }
 
 .nav-link {
@@ -37,7 +41,7 @@
   flex-direction: row;
   justify-content: space-evenly;
   padding: 10px 0;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   font-size: 1.5rem;
   cursor: pointer;
   text-decoration: none;
