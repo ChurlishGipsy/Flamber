@@ -18,7 +18,8 @@ const Settings = () => {
             doesWalletExist: false,
             initialAssets: null,
             modelWallet: [],
-            realWallet: []
+            realWallet: [],
+            creationDate: null
         }
         fetch('http://localhost:8000/user', {
             method: 'PUT',

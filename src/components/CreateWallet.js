@@ -151,11 +151,14 @@ const CancelButton = withStyles(() => ({
         if (!isNaN(initialAssets) && initialAssets !== '') {
             setInitialAssetsError(false)
             setIsPending(true);
+            const date = new Date();
+            const currentDate = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
             const updatedData = {
                 doesWalletExist: true,
                 initialAssets: parseFloat(initialAssets),
                 modelWallet: modelWallet,
-                realWalletUpdates: []
+                realWalletUpdates: [],
+                creationDate: currentDate
                 }
             fetch('http://localhost:8000/user', {
             method: 'PUT',
@@ -186,7 +189,8 @@ const CancelButton = withStyles(() => ({
                 doesWalletExist: data.doesWalletExist,
                 initialAssets: data.initialAssets,
                 modelWallet: modelWallet,
-                realWalletUpdates: data.realWalletUpdates
+                realWalletUpdates: data.realWalletUpdates,
+                creationDate: data.creationDate
                 }
             setIsPending(true);
             fetch('http://localhost:8000/user', {

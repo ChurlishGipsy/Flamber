@@ -51,7 +51,6 @@ const RealAssets = () => {
 
     useEffect(() => {
       if (!data) return;
-      else console.log(data);
     }, [data]);
 
 

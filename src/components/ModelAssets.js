@@ -88,7 +88,8 @@ const ModelAssets = () => {
               doesWalletExist: data.doesWalletExist,
               initialAssets: parseFloat(newAmount),
               modelWallet: data.modelWallet,
-              realWalletUpdates: data.realWalletUpdates
+              realWalletUpdates: data.realWalletUpdates,
+              creationDate: data.creationDate
             }
             fetch('http://localhost:8000/user', {
               method: 'PUT',

@@ -15,8 +15,8 @@ const Navigation = () => {
                     <p>Wallet</p>
                     <AccountBalanceWalletIcon/>
                 </NavLink>
-                <NavLink activeClassName='is-active' to="/statistics" className="nav-link">
-                    <p>Statistics</p>
+                <NavLink activeClassName='is-active' to="/overview" className="nav-link">
+                    <p>Overview</p>
                     <TimelineIcon/>
                 </NavLink>
                 <NavLink activeClassName='is-active' to="/settings" className="nav-link">

@@ -100,7 +100,8 @@ const UpdateAssets = () => {
             doesWalletExist: data.doesWalletExist,
             initialAssets: data.initialAssets,
             modelWallet: data.modelWallet,
-            realWalletUpdates: [...data.realWalletUpdates, updatedWallet]
+            realWalletUpdates: [...data.realWalletUpdates, updatedWallet],
+            creationDate: data.creationDate
           }       
           setIsPending(true)   
           fetch('http://localhost:8000/user', {

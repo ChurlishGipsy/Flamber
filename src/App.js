@@ -1,7 +1,7 @@
 import './App.css';
 import Navigation from './components/Navigation';
 import Wallet from './components/Wallet';
-import Statistics from './components/Statistics';
+import Overview from './components/Overview';
 import Settings from './components/Settings';
 import CreateWallet from './components/CreateWallet';
 import RealAssets from './components/RealAssets';
@@ -38,8 +38,8 @@ function App() {
               <Route path="/auth">
                 <Auth/>
               </Route>
-              <Route path="/statistics">
-                <Statistics/>
+              <Route path="/overview">
+                <Overview/>
               </Route>
               <Route path="/settings">
                 <Settings/>

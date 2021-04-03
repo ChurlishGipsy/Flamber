@@ -14,84 +14,22 @@
         "id": 2
       },
       {
-        "name": "ETF na rynki wschodzące",
+        "name": "ETF na rynki wschodzące ",
         "percentage": 15,
         "id": 3
       },
       {
-        "name": "Akcje",
+        "name": "Złoto",
         "percentage": 10,
         "id": 4
       },
       {
-        "name": "Złoto",
+        "name": "Akcje",
         "percentage": 10,
         "id": 5
       }
     ],
     "realWalletUpdates": [
-      {
-        "realWallet": [
-          {
-            "name": "Obligacje indeksowane inflacją",
-            "value": 12000,
-            "id": 1
-          },
-          {
-            "name": "ETF na rynki rozwinięte",
-            "value": 2000,
-            "id": 2
-          },
-          {
-            "name": "ETF na rynki wschodzące",
-            "value": 2000,
-            "id": 3
-          },
-          {
-            "name": "Akcje",
-            "value": 1500,
-            "id": 4
-          },
-          {
-            "name": "Złoto",
-            "value": 0,
-            "id": 5
-          }
-        ],
-        "date": "1/4/2021",
-        "currentAssets": 17500
-      },
-      {
-        "realWallet": [
-          {
-            "name": "Obligacje indeksowane inflacją",
-            "value": 12000,
-            "id": 1
-          },
-          {
-            "name": "ETF na rynki rozwinięte",
-            "value": 2000,
-            "id": 2
-          },
-          {
-            "name": "ETF na rynki wschodzące",
-            "value": 2000,
-            "id": 3
-          },
-          {
-            "name": "Akcje",
-            "value": 1500,
-            "id": 4
-          },
-          {
-            "name": "Złoto",
-            "value": 2500,
-            "id": 5
-          }
-        ],
-        "date": "1/4/2021",
-        "currentAssets": 20000
-      },
       {
         "realWallet": [
           {
@@ -105,24 +43,56 @@
             "id": 2
           },
           {
-            "name": "ETF na rynki wschodzące",
+            "name": "ETF na rynki wschodzące ",
             "value": 0,
             "id": 3
           },
           {
+            "name": "Złoto",
+            "value": 0,
+            "id": 4
+          },
+          {
             "name": "Akcje",
             "value": 1379.8,
-            "id": 4
+            "id": 5
+          }
+        ],
+        "date": "3/4/2021",
+        "currentAssets": 11379.8
+      },
+      {
+        "realWallet": [
+          {
+            "name": "Obligacje indeksowane inflacją",
+            "value": 12500,
+            "id": 1
+          },
+          {
+            "name": "ETF na rynki rozwinięte",
+            "value": 1000,
+            "id": 2
+          },
+          {
+            "name": "ETF na rynki wschodzące ",
+            "value": 1500,
+            "id": 3
           },
           {
             "name": "Złoto",
             "value": 0,
+            "id": 4
+          },
+          {
+            "name": "Akcje",
+            "value": 1379.8,
             "id": 5
           }
         ],
-        "date": "1/4/2021",
-        "currentAssets": 11379.8
+        "date": "3/4/2021",
+        "currentAssets": 16379.8
       }
-    ]
+    ],
+    "creationDate": "3/4/2021"
   }
 }
