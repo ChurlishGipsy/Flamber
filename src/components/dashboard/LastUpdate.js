@@ -50,8 +50,8 @@ const LastUpdate = () => {
         <div className="dashboard-tile-small">
             <div>
                 <p style={{padding: 5}}>Last wallet update</p>
-                {data.realWalletUpdates.length && <h1 style={{paddingTop: 20, paddingBottom: 25}}>{date}</h1>}
-                {!data.realWalletUpdates.length && <h1 style={{paddingTop: 20, paddingBottom: 25}}>-</h1>}
+                {data.realWalletUpdates.length > 0 && <h1 style={{paddingTop: 20, paddingBottom: 25}}>{date}</h1>}
+                {data && data.realWalletUpdates.length < 1 && <h1 style={{paddingTop: 20, paddingBottom: 25}}>-</h1>}
             </div>
             <img src={logo} alt="Logo"/>
         </div>

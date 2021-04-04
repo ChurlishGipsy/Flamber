@@ -5,20 +5,14 @@ import { UserContext } from '../../contexts/UserContext';
 
 const LineChart = () => {
 
-    const {data} = useContext(UserContext);
-    const [chartData, setChartData] = useState({});
-    useEffect(() => {
-      if (!data) return;
-      else if (data) {
-        let assetsValues = [];
-        let dates = [];
-        if (data.realWalletUpdates) {
-          for (const walletSnapshot of data.realWalletUpdates) {
-            assetsValues.push(walletSnapshot.currentAssets);
-            dates.push(walletSnapshot.date)
-          }
+    const addValues = (data) => {
+      let assetsValues = [];
+      let dates = [];
+      if (data && data.realWalletUpdates.length > 0) {
+        for (const walletSnapshot of data.realWalletUpdates) {
+          assetsValues.push(walletSnapshot.currentAssets);
+          dates.push(walletSnapshot.date)
         }
-        
         const configData = {
           labels: dates,
           datasets: [
@@ -47,9 +41,16 @@ const LineChart = () => {
         };
         setChartData(configData);
       }
-    }, [data ])
+    }
 
-    
+    const {data} = useContext(UserContext);
+    const [chartData, setChartData] = useState({});
+    useEffect(() => {
+      if (!data) return;
+      else {
+        addValues(data);  
+      }
+    }, [data ])
 
     return( 
         <div>
