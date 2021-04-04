@@ -7,7 +7,7 @@ import { UserContext } from '../contexts/UserContext';
 
 const Wallet = () => {
 
-    const {data, setData} = useContext(UserContext);
+    const {data} = useContext(UserContext);
     const [isPending, setIsPending] = useState(true);
     const [doesWalletExist, setDoesWalletExist] = useState(false);
     const [isBeingCreated, setIsBeingCreated] = useState(false);
@@ -27,27 +27,7 @@ const Wallet = () => {
             }
         }
       }, [data]);
-    // useEffect(() => {
-    //     fetch('http://localhost:8000/user')
-    //     .then(res => {
-    //         if (!res.ok) {
-    //             throw Error('Could not fetch the data for that resource');
-    //         }
-    //         return res.json();
-    //     })
-    //     .then((data) => {
-    //         setData(data);
-    //         if (data.doesWalletExist === true) {
-    //             setDoesWalletExist(true);
-    //         }
-    //         setIsPending(false);
-    //     })
-    //     .catch(err => {
-    //         setIsPending(false);
-    //         setError(err.message);
-    //     })
 
-    // },[setData])
 
     return ( 
         <div className="wallet">

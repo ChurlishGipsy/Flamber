@@ -8,6 +8,7 @@ import {CircularProgress} from '@material-ui/core';
 import CurrentAssets from './dashboard/CurrentAssets';
 import AssetsChange from './dashboard/AssetsChange';
 import LastUpdate from './dashboard/LastUpdate';
+import DoughtnutChart from './dashboard/DoughnutChart';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -57,16 +58,18 @@ const Overview = () => {
                       <LastUpdate/>
                     </Paper>
                 </Grid>
-                <Grid  item xs={4}>
+                <Grid  item xs={6}>
                 <Paper className={classes.paper}>
                     <LineChart/>
                 </Paper>
                 </Grid>
-                <Grid item xs={4}>
+                {/* <Grid item xs={4}>
                 <Paper className={classes.paper}>xs=4</Paper>
-                </Grid>
-                <Grid item xs={4}>
-                <Paper className={classes.paper}>xs=4</Paper>
+                </Grid> */}
+                <Grid item xs={6}>
+                <Paper className={classes.paper}>
+                  <DoughtnutChart/>
+                </Paper>
                 </Grid>
             </Grid>
         </div>

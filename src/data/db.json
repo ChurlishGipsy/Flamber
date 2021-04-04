@@ -153,6 +153,37 @@
         ],
         "date": "4/4/2021",
         "currentAssets": 7000
+      },
+      {
+        "realWallet": [
+          {
+            "name": "Obligacje indeksowane inflacją",
+            "value": 12000,
+            "id": 1
+          },
+          {
+            "name": "ETF na rynki rozwinięte",
+            "value": 2000,
+            "id": 2
+          },
+          {
+            "name": "ETF na rynki wschodzące ",
+            "value": 2000,
+            "id": 3
+          },
+          {
+            "name": "Złoto",
+            "value": 1500,
+            "id": 4
+          },
+          {
+            "name": "Akcje ",
+            "value": 2540.25,
+            "id": 5
+          }
+        ],
+        "date": "4/4/2021",
+        "currentAssets": 20040.25
       }
     ],
     "creationDate": "3/4/2021"

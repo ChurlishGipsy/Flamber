@@ -12,7 +12,6 @@ const AssetsChange = () => {
             percentage = ((data.realWalletUpdates[data.realWalletUpdates.length-1].currentAssets-data.realWalletUpdates[data.realWalletUpdates.length-2].currentAssets)/data.realWalletUpdates[data.realWalletUpdates.length-2].currentAssets) * 100;
             setAssetsChange(change);
             setPercentageChange(percentage);
-            console.log(percentage);
         } 
     }
 
@@ -36,9 +35,7 @@ const AssetsChange = () => {
                 {assetsChange < 0 && <h1 style={{padding: 10, color: '#f00'}}>{assetsChange.toFixed(2).replace(/\./g, ',')}zł</h1>}
                 {assetsChange === 0 &&  data.realWalletUpdates.length > 1 && <h1 style={{padding: 10}}>{assetsChange.toFixed(2).replace(/\./g, ',')}zł</h1>}
                 {assetsChange === 0 && data.realWalletUpdates.length < 1 && <h1 style={{padding: 10}}>-</h1>}
-                {<p style={{padding: 10}}><b>{percentageChange.toFixed(1).replace(/\./g, ',')} %</b> since last update</p>}
-                {<p></p>}
-                {<p></p>}
+                {<p style={{paddingTop: 5}}><b>{percentageChange.toFixed(1).replace(/\./g, ',')} %</b> since last update</p>}
             </div>
             <img src={profitIcon} alt=""/>
         </div>

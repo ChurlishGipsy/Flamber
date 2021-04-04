@@ -9,7 +9,7 @@ const Navigation = () => {
     return ( 
         <div className="navigation">
                 <div className="logo-background">
-                    <img src={logo} alt="Logo" style={{ color: '#E6AF2E'}}/>
+                    <img src={logo2} alt="Logo" style={{ color: '#E6AF2E'}}/>
                 </div>
                 <NavLink exact={true} activeClassName='is-active' to="/" className="nav-link">
                     <p>Wallet</p>
