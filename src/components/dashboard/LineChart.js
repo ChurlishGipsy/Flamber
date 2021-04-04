@@ -12,8 +12,6 @@ const LineChart = () => {
       else if (data) {
         let assetsValues = [];
         let dates = [];
-        assetsValues.push(data.initialAssets);
-        dates.push(data.creationDate)
         if (data.realWalletUpdates) {
           for (const walletSnapshot of data.realWalletUpdates) {
             assetsValues.push(walletSnapshot.currentAssets);
@@ -49,18 +47,15 @@ const LineChart = () => {
         };
         setChartData(configData);
       }
-      
     }, [data ])
 
     
 
-    return data ?  ( 
+    return( 
         <div>
             <h2>Wallet Value</h2>
             <Line data={chartData} />
         </div>
-     ) : (
-       <div>TEST</div>
      )
      ;
 }

@@ -186,9 +186,9 @@ input {
 
 
 .heading-info {
-  font-size: 2.5rem;
   text-align: center;
   padding: 2rem;
+  font-size: 2.5rem;
   text-transform: uppercase;
   color: #E6AF2E;
 }
@@ -260,4 +260,18 @@ input {
   font-size: 1.5rem;
   padding: 20px;
   margin-top: 30px;
+}
+
+.overview-title {
+  color: #E6AF2E;
+  font-size: 2.5rem;
+  text-transform: uppercase;
+}
+
+.dashboard-tile-small {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 30px;
 }
