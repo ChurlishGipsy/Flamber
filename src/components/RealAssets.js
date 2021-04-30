@@ -8,6 +8,7 @@ import empty from '../assets/empty.png';
 import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import TrendingDownIcon from '@material-ui/icons/TrendingDown';
 import DragHandleIcon from '@material-ui/icons/DragHandle';
+import Big from 'big.js';
 
 const StyledTableCell = withStyles(() => ({
     head: {
@@ -49,8 +50,15 @@ const RealAssets = () => {
     const {data} = useContext(UserContext);
     const classes = useStyles();
 
+
+    const calcValue = (value, overallAssets) => {
+      const decimalValue = new Big(value);
+      const decimalOverallAssets = new Big(overallAssets);
+      return decimalValue.div(decimalOverallAssets).times(100).round(2).toString().replace(/\./g, ',');
+    }
+
     useEffect(() => {
-      if (!data) return;
+      if (!data) return;  
     }, [data]);
 
 
@@ -71,10 +79,12 @@ const RealAssets = () => {
                             </TableHead>
                             <TableBody>
                                 {data.realWalletUpdates[data.realWalletUpdates.length - 1].realWallet.map((asset) => (
+
                                     <TableRow key={asset.id}>
                                         <StyledTableCell align="center">{asset.name}</StyledTableCell>
                                         <StyledTableCell align="center">{asset.value.toFixed(2).toString().replace(/\./g, ',')} zł</StyledTableCell>
-                                        <StyledTableCell align="center">{100*(asset.value / data.realWalletUpdates[data.realWalletUpdates.length - 1].currentAssets).toFixed(3) } %</StyledTableCell>
+                                        <StyledTableCell align="center">{calcValue(asset.value, data.realWalletUpdates[data.realWalletUpdates.length-1].currentAssets)} %</StyledTableCell>
+                                        {/* <StyledTableCell align="center">{100*(asset.value / data.realWalletUpdates[data.realWalletUpdates.length - 1].currentAssets).toFixed(3) } %</StyledTableCell> */}
                                         <StyledTableCell align="center">
                                           {100*(asset.value / data.realWalletUpdates[data.realWalletUpdates.length - 1].currentAssets).toFixed(4) > data.modelWallet[asset.id-1].percentage 
                                           && <TrendingUpIcon  style={{ color: '#00b418' }}/> }

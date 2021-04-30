@@ -107,13 +107,11 @@ const CancelButton = withStyles(() => ({
             setInputName('');
         }
         else {
-
             const newAsset = {
                     name: inputName,
                     percentage: parseFloat(inputPercentage),
                     id: modelWallet.length + 1
                 }
-
                 setPercentageSum(percentageSum + parseFloat(inputPercentage));
                 setModelWallet([...modelWallet, newAsset]);
                 
@@ -155,7 +153,6 @@ const CancelButton = withStyles(() => ({
             const currentDate = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
             const updatedData = {
                 doesWalletExist: true,
-                initialAssets: parseFloat(initialAssets),
                 modelWallet: modelWallet,
                 realWalletUpdates: [],
                 creationDate: currentDate
@@ -187,7 +184,6 @@ const CancelButton = withStyles(() => ({
         else {
             const updatedWallet = {
                 doesWalletExist: data.doesWalletExist,
-                initialAssets: data.initialAssets,
                 modelWallet: modelWallet,
                 realWalletUpdates: data.realWalletUpdates,
                 creationDate: data.creationDate
@@ -208,8 +204,8 @@ const CancelButton = withStyles(() => ({
 
     
     return data ? (
-        <div className="create-wallet-container">
-            {!isPending && <div>
+        <div className="centered">
+            {!isPending && <div style={{minWidth: '90%'}}>
             {modelWallet.length === 0 && <h1 className="title">Create Model Wallet</h1>}
             {modelWallet.length > 0 && <h1 className="title">Edit Model Wallet</h1>}
             <form onSubmit={handleAdd}>
@@ -250,7 +246,7 @@ const CancelButton = withStyles(() => ({
                                 {modelWallet.map((asset) => (
                                     <TableRow key={asset.id}>
                                         <StyledTableCell align="center">{asset.name}</StyledTableCell>
-                                        <StyledTableCell align="center">{asset.percentage}</StyledTableCell>
+                                        <StyledTableCell align="center">{asset.percentage.toString().replace(/\./g, ',')}</StyledTableCell>
                                         <StyledTableCell align="center"><CancelButton onClick={() => handleDelete(asset.id)}><ClearIcon/></CancelButton></StyledTableCell>
                                     </TableRow>
                                 ))}
@@ -266,7 +262,6 @@ const CancelButton = withStyles(() => ({
                     {isBeingEdited && modelWallet.length === 0 &&<MainButton disabled>Save</MainButton>}
                     {isBeingEdited && modelWallet.length > 0 && percentageSum !== 100 &&<MainButton disabled>Save</MainButton>}
                     {isBeingEdited && modelWallet.length > 0 && percentageSum === 100 && <MainButton color="secondary" variant="contained" onClick={handleSave}>Save</MainButton>}
-
                 </div>
             </form>
             <Modal
@@ -276,8 +271,8 @@ const CancelButton = withStyles(() => ({
                     disableBackdropClick>
                     <div style={modalStyle} className={classes.paper}>
                       {percentageSum === 100 && <div>
-                        <h1 className="modal-info">Enter initial model assets</h1>
-                        <div className="centered-container">
+                        <p className="modal-info">Do you want to save your model wallet?</p>
+                        {/* <div className="centered-container">
                         <form onSubmit={handleAssetsSave}>
                               <TextField
                               color="primary"
@@ -289,8 +284,8 @@ const CancelButton = withStyles(() => ({
                                helperText={initialAssetsHelperText}
                                error={initialAssetsError}/>
                             </form>
-                        </div>
-                        <div className="bottom-buttons">
+                        </div> */}
+                        <div className="bottom-buttons" style={{paddding: 0}}>
                             <CancelButton onClick={handleModalClose}>Cancel</CancelButton>
                             <MainButton color="primary" onClick={handleAssetsSave}>Save</MainButton>
                         </div>
@@ -307,7 +302,7 @@ const CancelButton = withStyles(() => ({
                     </div>
                 </Modal>
             </div>}
-            {isPending && <div className="centered"><CircularProgress size='6rem'/></div>}
+            {isPending && <CircularProgress size='6rem'/>}
         </div>
      ) : (
         <div className="centered"><CircularProgress size='6rem'/></div>
