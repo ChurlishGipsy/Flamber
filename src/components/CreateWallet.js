@@ -6,6 +6,9 @@ import { makeStyles, withStyles} from '@material-ui/core/styles';
 import {CircularProgress} from '@material-ui/core';
 import ClearIcon from '@material-ui/icons/Clear';
 import { UserContext } from '../contexts/UserContext';
+import save from '../assets/save.png'
+import InfoIcon from '@material-ui/icons/Info';
+import ErrorIcon from '@material-ui/icons/Error';
 
 const StyledTableCell = withStyles(() => ({
     head: {
@@ -38,9 +41,8 @@ const CancelButton = withStyles(() => ({
       position: 'absolute',
       width: '50%',
       backgroundColor: theme.palette.background.paper,
-      border: '2px solid #000',
       boxShadow: theme.shadows[5],
-      padding: theme.spacing(1, 1, 1),
+      paddingBottom: '30px'
     },
     table: {
         minWidth: 500
@@ -61,13 +63,10 @@ const CancelButton = withStyles(() => ({
     const [percentageSum, setPercentageSum] = useState(0);  
     const [inputName, setInputName] = useState('');
     const [inputPercentage, setInputPercentage] = useState('')
-    const [initialAssets, setInitialAssets] = useState('');
     const [nameHelperText, setNameHelperText] = useState('');
-    const [initialAssetsHelperText, setInitialAssetsHelperText] = useState('')    
     const [percentageHelperText, setPercentageHelperText] = useState('');
     const [nameError, setNameError] = useState(false)
     const [percentageError, setPercentageError] = useState(false);
-    const [initialAssetsError, setInitialAssetsError] = useState(false);
     const [initialAssetsOpen, setInitialAssetsOpen] = useState(false);
     const [isPending, setIsPending] = useState(false);
     
@@ -92,7 +91,28 @@ const CancelButton = withStyles(() => ({
 
     const handleAdd = (e) => {
         e.preventDefault();
-        if (isNaN((inputPercentage)) || inputPercentage === '0' || inputPercentage === '') {
+        if (!isNaN(inputPercentage.replace(/,/g, '.')) && inputPercentage !== '0' && inputPercentage !== '') {
+            if (inputName === '') {
+                setNameHelperText('Please enter a valid asset name');
+                setNameError(true);
+                setInputName('');
+            } else {
+                const newAsset = {
+                    name: inputName,
+                    percentage: parseFloat(inputPercentage.replace(/,/g, '.')),
+                    id: modelWallet.length + 1
+                }
+                setPercentageSum(percentageSum + parseFloat(inputPercentage));
+                setModelWallet([...modelWallet, newAsset]);
+                setNameError(false);
+                setPercentageError(false);
+                setNameHelperText('');
+                setPercentageHelperText();
+                setInputName('');
+                setInputPercentage('');
+            }
+        }
+        else  {
             setPercentageHelperText('Invalid format. Please try again.');
             setPercentageError(true);
             setInputPercentage('');
@@ -101,26 +121,6 @@ const CancelButton = withStyles(() => ({
                 setNameError(true);
                 setInputName('');
             }
-        } else if (inputName === '') {
-            setNameHelperText('Please enter a valid asset name');
-            setNameError(true);
-            setInputName('');
-        }
-        else {
-            const newAsset = {
-                    name: inputName,
-                    percentage: parseFloat(inputPercentage),
-                    id: modelWallet.length + 1
-                }
-                setPercentageSum(percentageSum + parseFloat(inputPercentage));
-                setModelWallet([...modelWallet, newAsset]);
-                
-                setNameError(false);
-                setPercentageError(false);
-                setNameHelperText('');
-                setPercentageHelperText();
-                setInputName('');
-                setInputPercentage('');
             }
     }
 
@@ -140,40 +140,31 @@ const CancelButton = withStyles(() => ({
     }
 
     const handleModalClose = () => {
-        setInitialAssets('')
         setInitialAssetsOpen(false);
     }
 
     const handleAssetsSave = (e) => {
         e.preventDefault();
-        if (!isNaN(initialAssets) && initialAssets !== '') {
-            setInitialAssetsError(false)
-            setIsPending(true);
-            const date = new Date();
-            const currentDate = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
-            const updatedData = {
-                doesWalletExist: true,
-                modelWallet: modelWallet,
-                realWalletUpdates: [],
-                creationDate: currentDate
-                }
-            fetch('http://localhost:8000/user', {
-            method: 'PUT',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(updatedData)
-            }).then(() => {
-            setData(updatedData)
-            setIsPending(false);
-            history.push('/');
-                })
-            setInitialAssetsOpen(false);
-        } else {
-            setInitialAssetsError(true);
-            setInitialAssetsHelperText('Invalid format. Please try again.');
-        }
-        setInitialAssets('');
-        
-
+        setIsPending(true);
+        const date = new Date();
+        const currentDate = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
+        const updatedData = {
+            doesWalletExist: true,
+            modelWallet: modelWallet,
+            realWalletUpdates: [],
+            creationDate: currentDate
+            }
+        fetch('http://localhost:8000/user', {
+        method: 'PUT',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(updatedData)
+        }).then(() => {
+        setData(updatedData)
+        setIsPending(false);
+        history.push('/');
+           })
+        setInitialAssetsOpen(false);
+            
     }
 
     const handleSave = (e) => {
@@ -237,7 +228,7 @@ const CancelButton = withStyles(() => ({
                             <TableHead>
                                 <TableRow>
                                     <StyledTableCell align="center">Model Asset Name </StyledTableCell>
-                                    <StyledTableCell align="center">Composition %</StyledTableCell>
+                                    <StyledTableCell align="center">Composition</StyledTableCell>
                                     <StyledTableCell align="center"></StyledTableCell>
 
                                 </TableRow>
@@ -246,7 +237,7 @@ const CancelButton = withStyles(() => ({
                                 {modelWallet.map((asset) => (
                                     <TableRow key={asset.id}>
                                         <StyledTableCell align="center">{asset.name}</StyledTableCell>
-                                        <StyledTableCell align="center">{asset.percentage.toString().replace(/\./g, ',')}</StyledTableCell>
+                                        <StyledTableCell align="center">{asset.percentage.toString().replace(/,/g, '.')} %</StyledTableCell>
                                         <StyledTableCell align="center"><CancelButton onClick={() => handleDelete(asset.id)}><ClearIcon/></CancelButton></StyledTableCell>
                                     </TableRow>
                                 ))}
@@ -270,8 +261,9 @@ const CancelButton = withStyles(() => ({
                     aria-describedby="simple-modal-description"
                     disableBackdropClick>
                     <div style={modalStyle} className={classes.paper}>
-                      {percentageSum === 100 && <div>
-                        <p className="modal-info">Do you want to save your model wallet?</p>
+                      {percentageSum === 100 && <div className="centered-container">
+                        <img style={{paddingTop: 50}} src={save} alt="Save Icon"/>
+                        <p className="modal-info">Would you like to save your model wallet?</p>
                         {/* <div className="centered-container">
                         <form onSubmit={handleAssetsSave}>
                               <TextField
@@ -285,15 +277,19 @@ const CancelButton = withStyles(() => ({
                                error={initialAssetsError}/>
                             </form>
                         </div> */}
-                        <div className="bottom-buttons" style={{paddding: 0}}>
+                        <div className="modal-bottom-buttons" style={{paddding: '5px !important'}}>
                             <CancelButton onClick={handleModalClose}>Cancel</CancelButton>
-                            <MainButton color="primary" onClick={handleAssetsSave}>Save</MainButton>
+                            <MainButton color="secondary" variant="contained" onClick={handleAssetsSave}>Save</MainButton>
                         </div>
                       </div>}
                       {percentageSum !== 100 && 
                       <div className="centered-container">
-                        <p className="modal-error-info">Your total model wallet assets percentage is not equal 100%! Please make adjustments and try again.</p>
-                        <MainButton color="primary" onClick={handleModalClose}>Continue</MainButton>    
+                        <div className="modal-header">
+                            <p className="modal-header-info">Warning</p>
+                            <ErrorIcon/>
+                        </div>
+                        <p className="modal-info">Your total model wallet assets percentage is not equal 100%! <br/> Please make adjustments and try again.</p>
+                        <MainButton color="secondary" variant="contained" onClick={handleModalClose}>Continue</MainButton>    
 
                       </div>
                       }

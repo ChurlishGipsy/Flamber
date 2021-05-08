@@ -16,7 +16,6 @@ const Settings = () => {
         setIsPending(true);
         const emptyData = {
             doesWalletExist: false,
-            initialAssets: null,
             modelWallet: [],
             realWalletUpdates: [],
             creationDate: null
@@ -38,7 +37,7 @@ const Settings = () => {
 
     return data ? ( 
         <div className="centered">
-
+            <h2 className="overview-title">Settings</h2>
             {!isPending && <Button color="secondary" onClick={handleReset}>Reset Data</Button>}
             {isPending && <div className="centered"><CircularProgress size='6rem'/></div>}
         </div>

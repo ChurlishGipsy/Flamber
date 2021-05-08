@@ -63,9 +63,6 @@ const Overview = () => {
                     <LineChart/>
                 </Paper>
                 </Grid>
-                {/* <Grid item xs={4}>
-                <Paper className={classes.paper}>xs=4</Paper>
-                </Grid> */}
                 <Grid item xs={6}>
                 <Paper className={classes.paper}>
                   <DoughtnutChart/>

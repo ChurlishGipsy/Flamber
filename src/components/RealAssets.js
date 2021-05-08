@@ -54,7 +54,7 @@ const RealAssets = () => {
     const calcValue = (value, overallAssets) => {
       const decimalValue = new Big(value);
       const decimalOverallAssets = new Big(overallAssets);
-      return decimalValue.div(decimalOverallAssets).times(100).round(2).toString().replace(/\./g, ',');
+      return decimalValue.div(decimalOverallAssets).times(100).round(2).toString();
     }
 
     useEffect(() => {

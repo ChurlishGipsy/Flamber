@@ -62,15 +62,16 @@ const UpdateAssets = () => {
   const history = useHistory();
 
     const handleAdd = (id) => {
-      if (!isNaN(assetValue) && assetValue !== '') {
+      if (!isNaN(assetValue.replace(/,/g, '.')) && assetValue !== '') {
         setAssetHelperText('');
         setAssetError(false);
         const newModelWallet = modelWallet.filter(asset => asset.id !== id);
         const asset = {
           name: modelWallet[0].name,
-          value: parseFloat(assetValue),
+          value: parseFloat(assetValue.replace(/,/g, '.')),
           id: id
         }
+        console.log(asset)
         setRealWallet([...realWallet, asset]);
         setModelWallet(newModelWallet);
       }        
@@ -98,7 +99,6 @@ const UpdateAssets = () => {
           }
           const updatedData = {
             doesWalletExist: data.doesWalletExist,
-            initialAssets: data.initialAssets,
             modelWallet: data.modelWallet,
             realWalletUpdates: [...data.realWalletUpdates, updatedWallet],
             creationDate: data.creationDate

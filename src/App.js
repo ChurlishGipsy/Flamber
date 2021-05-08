@@ -1,5 +1,5 @@
 import './App.css';
-import Navigation from './components/Navigation';
+import Navigation from './components/navigation/Navigation';
 import Wallet from './components/Wallet';
 import Overview from './components/Overview';
 import Settings from './components/Settings';

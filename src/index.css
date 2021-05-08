@@ -25,33 +25,56 @@
 }
 
 .navigation {
-  background: linear-gradient(rgb(10, 17, 66), rgb(25, 48, 150));
+  background-color: rgb(25, 48, 150);
   display: flex;
   flex-direction: column;
-    text-align: center;
+  text-align: center;
+  color: #fff;
 }
 
 .logo-background {
   padding: 30px;
-  color: #E6AF2E;
 }
+
+.sidebar-link {
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 15%;
+  list-style: none;
+  text-decoration: none;
+  font-size: 1.3rem;
+}
+
+.sidebar-link:hover {
+  background-color: rgb(1, 22, 92);
+  border-left: 4px solid #fff;
+  cursor: pointer;
+}
+
 
 .nav-link {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
-  padding: 10px 0;
-  /* text-transform: uppercase; */
+  justify-content: space-between;
+  padding: 10px 10%;
+  text-transform: uppercase;
   font-size: 1.5rem;
   cursor: pointer;
   text-decoration: none;
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+}
+
+.nav-icon {
   color: #E6AF2E;
 }
 
 .nav-link:hover,
 .is-active
  {
-  background-color: rgb(4, 10, 34);
+  background-color: rgb(0, 17, 87);
 }
 
 .no-wallet {
@@ -201,20 +224,31 @@ input {
   color: #E6AF2E;
 }
 
+.modal-header {
+  width: 100%;
+  background-color: rgb(25, 48, 150);
+  display: flex;
+  align-items: center;
+  color: white;
+}
+
+.modal-header-info {
+  padding: 10px;
+  font-size: 1.75rem;
+  margin-left: 10px;
+}
+
 .modal-info {
-  font-size: 1.5rem;
+  font-size: 1.35rem;
   text-align: center;
   padding: 2rem;
-  text-transform: uppercase;
-  /* color: #000; */
   font-weight: normal;
 }
 
-.modal-error-info {
-  padding: 2rem;
-  text-align: center;
-  color: #FF0000;
-  font-size: 1.5rem;
+.modal-bottom-buttons {
+  width: 40%;
+  display: flex;
+  justify-content: space-evenly;
 }
 
 .centered {

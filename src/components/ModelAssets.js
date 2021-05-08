@@ -17,13 +17,6 @@ import {CircularProgress} from '@material-ui/core';
       },
     }))(TableCell);
 
-  const CancelButton = withStyles(() => ({
-    root: {
-      color: 'red',
-      fontSize: '1.2rem',
-      fontWeight: 'bold',
-    },
-  }))(Button);
 
   const MainButton = withStyles(() => ({
     root: {
@@ -55,46 +48,12 @@ import {CircularProgress} from '@material-ui/core';
 const ModelAssets = () => {
 
     const {data, setData} = useContext(UserContext)
-    const [newAmount, setNewAmount] = useState(null);
-    const [helperText, setHelperText] = useState('');
-    const [error, setError] = useState(false);
     const classes = useStyles();
     
     useEffect(() => {
       if (!data) return;
     }, [data]);
 
-    
-      // const handleSave = (e) => {
-      //   e.preventDefault();      
-      //   if (!isNaN(newAmount)) {
-      //     if (newAmount !== '' && newAmount !== null) {
-      //       setError(false);
-      //       const updatedData = {
-      //         doesWalletExist: data.doesWalletExist,
-      //         initialAssets: parseFloat(newAmount),
-      //         modelWallet: data.modelWallet,
-      //         realWalletUpdates: data.realWalletUpdates,
-      //         creationDate: data.creationDate
-      //       }
-      //       fetch('http://localhost:8000/user', {
-      //         method: 'PUT',
-      //         headers: {'Content-Type': 'application/json'},
-      //         body: JSON.stringify(updatedData)
-      //         }).then(() => {
-      //           setNewAmount(null);
-      //           setData(updatedData)
-      //       }) 
-      //     } else {
-      //       setHelperText('Please enter valid assets amount.');
-      //       setError(true);
-      //     }
-          
-      //   } else {
-      //     setHelperText('Invalid format. Please try again.');
-      //     setError(true);
-      //   }
-      // }
 
     return data ? ( 
         <div className="centered">
@@ -105,7 +64,7 @@ const ModelAssets = () => {
                             <TableHead>
                                 <TableRow>
                                     <StyledTableCell align="center">Model Asset Name </StyledTableCell>
-                                    <StyledTableCell align="center">Composition %</StyledTableCell>
+                                    <StyledTableCell align="center">Composition</StyledTableCell>
                                     {/* <StyledTableCell align="center">Composition zł</StyledTableCell> */}
                                 </TableRow>
                             </TableHead>
@@ -113,7 +72,7 @@ const ModelAssets = () => {
                                 {data.modelWallet.map((asset) => (
                                     <TableRow key={asset.id}>
                                         <StyledTableCell align="center">{asset.name}</StyledTableCell>
-                                        <StyledTableCell align="center">{asset.percentage.toFixed(1)}</StyledTableCell>
+                                        <StyledTableCell align="center">{asset.percentage.toFixed(1)} %</StyledTableCell>
                                         {/* <StyledTableCell align="center">{(asset.percentage * data.initialAssets / 100).toFixed(2).toString().replace(/\./g, ',')}</StyledTableCell> */}
                                     </TableRow>
                                 ))}
@@ -123,7 +82,7 @@ const ModelAssets = () => {
                 </div>
             <div className="bottom-buttons">
                 <Link style={{ textDecoration: 'none' }} to="/create"><MainButton color="primary" variant="text">Edit Assets</MainButton></Link>
-                <Link  style={{ textDecoration: 'none '}} to="/real-assets"><MainButton color="primary" variant="text">Real Wallet</MainButton></Link>
+                <Link  style={{ textDecoration: 'none '}} to="/real-assets"><MainButton color="secondary" variant="contained">Real Wallet</MainButton></Link>
             </div>
         </div>
      ) : (
