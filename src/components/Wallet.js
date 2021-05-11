@@ -3,7 +3,19 @@ import ModelAssets from './ModelAssets';
 import {CircularProgress} from '@material-ui/core';
 import {Link, useHistory} from 'react-router-dom';
 import { UserContext } from '../contexts/UserContext';
+import { withStyles} from '@material-ui/core/styles';
+import {Button} from '@material-ui/core';
+// import percentage from '../assets/per.png'
+import modelWallet from '../assets/model-wallet.png'
 
+
+
+const MainButton = withStyles(() => ({
+    root: {
+      fontSize: '1.5rem',
+      fontWeight: 'bold',
+    },
+  }))(Button);
 
 const Wallet = () => {
 
@@ -29,25 +41,30 @@ const Wallet = () => {
       }, [data]);
 
 
-    return ( 
+    return data ? ( 
         <div className="wallet">
-            {/* {error && <div>{ error }</div>} */}
             {isPending && <div className="centered"><CircularProgress size='6rem'/></div>}
             {data && !isPending &&  doesWalletExist  &&
              <ModelAssets/>
             }
             {data && !isPending &&  !doesWalletExist && !isBeingCreated &&
-            <div className="no-wallet">
-                <p className="text-info">
-                    It seems you don't have a wallet.
-                    <br></br>
-                     Would you like to create it?  
-                </p>
-                <Link to="/create" className="action-btn create-wallet-btn" onClick={createWallet}>Create Wallet</Link>
+            <div className="centered">
+                <h1 className="heading-info">MODEL ASSETS</h1>
+                <div className="starting-message">
+                    <img  src={modelWallet} alt="Percentage Icon" />
+                    <p className="starting-info">It seems you don't have a wallet. <br/> Would you like to create it?</p>
+                </div>
+                <div className="bottom-buttons">
+                    <Link style={{textDecoration: 'none'}} to="/create" onClick={createWallet}>
+                        <MainButton variant="contained" color="secondary">Create Wallet</MainButton>
+                    </Link>
+                </div>
             </div>
             }
         </div>
-     );
+     ): (
+        <div className="centered"><CircularProgress size='6rem'/></div>
+       );
 }
  
 export default Wallet;

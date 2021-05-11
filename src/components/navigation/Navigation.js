@@ -1,8 +1,3 @@
-import {NavLink, Link} from 'react-router-dom';
-import {useState} from 'react';
-import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
-import TimelineIcon from '@material-ui/icons/Timeline';
-import SettingsIcon from '@material-ui/icons/Settings';
 import logo2 from '../../assets/wallet-icon.png';
 import {NavData} from './NavData';
 import SubNav from './SubNav';

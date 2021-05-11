@@ -54,6 +54,7 @@ const RealAssets = () => {
     const calcValue = (value, overallAssets) => {
       const decimalValue = new Big(value);
       const decimalOverallAssets = new Big(overallAssets);
+      console.log(decimalValue.div(decimalOverallAssets))
       return decimalValue.div(decimalOverallAssets).times(100).round(2).toString();
     }
 
@@ -64,7 +65,7 @@ const RealAssets = () => {
 
     return data ? ( 
         <div className="centered">
-            <h2 className="heading-info">REAL ASSETS</h2>
+            <h1 className="heading-info">REAL ASSETS</h1>
             <div className="assets-list">
             {data.realWalletUpdates.length > 0 && <TableContainer component={Paper}>
                         <Table className={classes.table}>
@@ -84,7 +85,6 @@ const RealAssets = () => {
                                         <StyledTableCell align="center">{asset.name}</StyledTableCell>
                                         <StyledTableCell align="center">{asset.value.toFixed(2).toString().replace(/\./g, ',')} zł</StyledTableCell>
                                         <StyledTableCell align="center">{calcValue(asset.value, data.realWalletUpdates[data.realWalletUpdates.length-1].currentAssets)} %</StyledTableCell>
-                                        {/* <StyledTableCell align="center">{100*(asset.value / data.realWalletUpdates[data.realWalletUpdates.length - 1].currentAssets).toFixed(3) } %</StyledTableCell> */}
                                         <StyledTableCell align="center">
                                           {100*(asset.value / data.realWalletUpdates[data.realWalletUpdates.length - 1].currentAssets).toFixed(4) > data.modelWallet[asset.id-1].percentage 
                                           && <TrendingUpIcon  style={{ color: '#00b418' }}/> }
