@@ -7,7 +7,6 @@ import {CircularProgress} from '@material-ui/core';
 import ClearIcon from '@material-ui/icons/Clear';
 import { UserContext } from '../contexts/UserContext';
 import save from '../assets/save.png'
-import InfoIcon from '@material-ui/icons/Info';
 import ErrorIcon from '@material-ui/icons/Error';
 
 const StyledTableCell = withStyles(() => ({

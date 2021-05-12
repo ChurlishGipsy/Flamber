@@ -11,7 +11,6 @@ const DoughtnutChart = () => {
     const checkWallet = (data) => {
         let labels = [];
         let assetsValues = [];
-        let colors = []; 
         const backgroundColors = ['#FF6384', '#36A2EB', '#FFCE56','#8bc34a', '#ff9800', '#673ab7', '#795548', '#303f9f', '#bdbdbd', '#ff5722', '#00e676', '#00bcd4', '#37474f', '#f50057', '##ffff00', '#fff3e0', '#8d6e63', '#c6ff00', '#00bfa5', '#d50000'  ]
 
         if (data && data.realWalletUpdates.length)  {

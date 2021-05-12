@@ -1,14 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {NavLink} from 'react-router-dom';
 
 
 const SubNav = ({item}) => {
     
     const [subnav, setSubnav] = useState(false);  
-    
-    useEffect(() => {
-        console.log(subnav)
-    }, [subnav])
 
     const showSubnav = () => setSubnav(!subnav);
     

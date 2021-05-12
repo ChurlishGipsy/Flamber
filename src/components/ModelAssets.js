@@ -1,6 +1,6 @@
-import { Button, Modal, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, TextField} from '@material-ui/core';
+import { Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper} from '@material-ui/core';
 import { makeStyles, withStyles} from '@material-ui/core/styles';
-import { useState, useContext, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { UserContext } from '../contexts/UserContext';
 import {CircularProgress} from '@material-ui/core';
@@ -38,12 +38,6 @@ import {CircularProgress} from '@material-ui/core';
         minWidth: 500
     }
   }));
-
-  const modalStyle = {
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%,-50%)'
-  };
 
 const ModelAssets = () => {
 

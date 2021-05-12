@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { UserContext } from '../contexts/UserContext';
 import { makeStyles, withStyles} from '@material-ui/core/styles';
 import {Link} from 'react-router-dom';
@@ -8,7 +8,7 @@ import empty from '../assets/empty.png';
 import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import TrendingDownIcon from '@material-ui/icons/TrendingDown';
 import DragHandleIcon from '@material-ui/icons/DragHandle';
-import Big from 'big.js';
+import percentRound from 'percent-round';
 
 const StyledTableCell = withStyles(() => ({
     head: {
@@ -51,11 +51,23 @@ const RealAssets = () => {
     const classes = useStyles();
 
 
-    const calcValue = (value, overallAssets) => {
-      const decimalValue = new Big(value);
-      const decimalOverallAssets = new Big(overallAssets);
-      console.log(decimalValue.div(decimalOverallAssets))
-      return decimalValue.div(decimalOverallAssets).times(100).round(2).toString();
+    // const calcValue = (value, overallAssets) => {
+    //   const decimalValue = new Big(value);
+    //   const decimalOverallAssets = new Big(overallAssets);
+    //   console.log(decimalValue.div(decimalOverallAssets))
+    //   return decimalValue.div(decimalOverallAssets).times(100).round(2).toString();
+    // }
+
+    const calcPercentage = (index) => {
+      let composition = [];
+      if (data) {
+        data.realWalletUpdates[data.realWalletUpdates.length - 1].realWallet.forEach((asset) => {
+          composition.push(100*(asset.value / data.realWalletUpdates[data.realWalletUpdates.length - 1].currentAssets))
+        })
+      const calculatedComposition = percentRound(composition,2)
+      console.log((calculatedComposition[index]));
+      return calculatedComposition[index].toFixed(2);
+      } 
     }
 
     useEffect(() => {
@@ -79,19 +91,29 @@ const RealAssets = () => {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {data.realWalletUpdates[data.realWalletUpdates.length - 1].realWallet.map((asset) => (
-
+                                {data.realWalletUpdates[data.realWalletUpdates.length - 1].realWallet.map((asset, index) => (
+                                    
                                     <TableRow key={asset.id}>
                                         <StyledTableCell align="center">{asset.name}</StyledTableCell>
                                         <StyledTableCell align="center">{asset.value.toFixed(2).toString().replace(/\./g, ',')} zł</StyledTableCell>
-                                        <StyledTableCell align="center">{calcValue(asset.value, data.realWalletUpdates[data.realWalletUpdates.length-1].currentAssets)} %</StyledTableCell>
+                                        <StyledTableCell align="center">{calcPercentage(index)} %</StyledTableCell>
+                                        {/* <StyledTableCell align="center">{100*(asset.value / data.realWalletUpdates[data.realWalletUpdates.length - 1].currentAssets).toFixed(3) } %</StyledTableCell> */}
                                         <StyledTableCell align="center">
                                           {100*(asset.value / data.realWalletUpdates[data.realWalletUpdates.length - 1].currentAssets).toFixed(4) > data.modelWallet[asset.id-1].percentage 
-                                          && <TrendingUpIcon  style={{ color: '#00b418' }}/> }
+                                          && <div className="parallel">
+                                            <p>+ {(calcPercentage(index) - data.modelWallet[index].percentage).toFixed(2) } %</p>
+                                            <TrendingUpIcon  style={{ color: '#00b418' }}/> 
+                                          </div>}
                                           {100*(asset.value / data.realWalletUpdates[data.realWalletUpdates.length - 1].currentAssets).toFixed(4) === data.modelWallet[asset.id-1].percentage 
-                                          && <DragHandleIcon style={{ color: '#E6AF2E'}}/>}
+                                          && <div className="parallel">
+                                            <p> = 0.00 %</p>
+                                            <DragHandleIcon style={{ color: '#E6AF2E'}}/>
+                                          </div>}
                                           {100*(asset.value / data.realWalletUpdates[data.realWalletUpdates.length - 1].currentAssets).toFixed(4) < data.modelWallet[asset.id-1].percentage 
-                                          && <TrendingDownIcon style={{ color: '#ff0000' }}/>}
+                                          && <div className="parallel">
+                                            <p>- {(data.modelWallet[index].percentage - calcPercentage(index)).toFixed(2) } %</p>
+                                            <TrendingDownIcon style={{ color: '#ff0000' }}/>
+                                          </div> }
                                         </StyledTableCell>
                                         <StyledTableCell align="center">
                                             {(asset.value - data.realWalletUpdates[data.realWalletUpdates.length - 1].currentAssets * (data.modelWallet[asset.id-1].percentage/100)).toFixed(2).toString().replace(/\./g, ',')} zł

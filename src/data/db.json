@@ -18,7 +18,7 @@
         "id": 3
       },
       {
-        "name": "Akcje spółek dywidendowych",
+        "name": "Akcje spółek dywidendowych ",
         "percentage": 15,
         "id": 4
       }
@@ -42,15 +42,41 @@
             "id": 3
           },
           {
-            "name": "Akcje spółek dywidendowych",
+            "name": "Akcje spółek dywidendowych ",
+            "value": 2226,
+            "id": 4
+          }
+        ],
+        "date": "12/5/2021",
+        "currentAssets": 14430.4
+      },
+      {
+        "realWallet": [
+          {
+            "name": "Obligacje indeksowane inflacją",
+            "value": 10000,
+            "id": 1
+          },
+          {
+            "name": "ETF",
+            "value": 1257,
+            "id": 2
+          },
+          {
+            "name": "Akcje spółek wzrostowych ",
+            "value": 947.4,
+            "id": 3
+          },
+          {
+            "name": "Akcje spółek dywidendowych ",
             "value": 2823.6,
             "id": 4
           }
         ],
-        "date": "11/5/2021",
+        "date": "12/5/2021",
         "currentAssets": 15028
       }
     ],
-    "creationDate": "11/5/2021"
+    "creationDate": "12/5/2021"
   }
 }
