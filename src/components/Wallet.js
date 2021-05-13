@@ -3,19 +3,10 @@ import ModelAssets from './ModelAssets';
 import {CircularProgress} from '@material-ui/core';
 import {Link, useHistory} from 'react-router-dom';
 import { UserContext } from '../contexts/UserContext';
-import { withStyles} from '@material-ui/core/styles';
-import {Button} from '@material-ui/core';
-// import percentage from '../assets/per.png'
 import modelWallet from '../assets/model-wallet.png'
+import {MainButton} from './reusable/MainButton';
 
 
-
-const MainButton = withStyles(() => ({
-    root: {
-      fontSize: '1.5rem',
-      fontWeight: 'bold',
-    },
-  }))(Button);
 
 const Wallet = () => {
 
@@ -35,7 +26,6 @@ const Wallet = () => {
             setIsPending(false);
             if (data.doesWalletExist === true) {
                 setDoesWalletExist(true);
-                
             }
         }
       }, [data]);

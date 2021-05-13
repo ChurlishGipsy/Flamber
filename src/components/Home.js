@@ -1,16 +1,8 @@
-import { withStyles} from '@material-ui/core/styles';
-import { Button } from '@material-ui/core';
 import logo from '../assets/wallet-icon.png';
+import {MainButton} from './reusable/MainButton';
 
 
 
-
-const MainButton = withStyles(() => ({
-    root: {
-      fontSize: '1.3rem',
-      fontWeight: 'bold'
-    },
-  }))(Button);
 
 const Home = () => {
     return ( 

@@ -1,7 +1,7 @@
 import {useContext, useState, useEffect} from 'react'
-import {Button} from '@material-ui/core'
 import { UserContext } from "../contexts/UserContext";
 import {CircularProgress} from '@material-ui/core';
+import {MainButton} from './reusable/MainButton';
 
 
 
@@ -38,7 +38,7 @@ const Settings = () => {
     return data ? ( 
         <div className="centered">
             <h2 className="overview-title">Settings</h2>
-            {!isPending && <Button color="secondary" onClick={handleReset}>Reset Data</Button>}
+            {!isPending && <MainButton color="secondary" variant="contained" onClick={handleReset}>Reset Data</MainButton>}
             {isPending && <div className="centered"><CircularProgress size='6rem'/></div>}
         </div>
      ) : (

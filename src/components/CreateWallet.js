@@ -1,39 +1,17 @@
 import AddIcon from '@material-ui/icons/Add';
-import {Modal, TextField, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@material-ui/core';
+import {Modal, TextField, Table, TableBody, TableContainer, TableHead, TableRow, Paper } from '@material-ui/core';
 import { useState, useEffect,  useContext } from 'react'; 
 import {useHistory} from 'react-router-dom';
-import { makeStyles, withStyles} from '@material-ui/core/styles';
+import { makeStyles} from '@material-ui/core/styles';
 import {CircularProgress} from '@material-ui/core';
 import ClearIcon from '@material-ui/icons/Clear';
 import { UserContext } from '../contexts/UserContext';
 import save from '../assets/save.png'
 import ErrorIcon from '@material-ui/icons/Error';
+import {MainButton} from './reusable/MainButton';
+import {CancelButton} from './reusable/CancelButton';
+import {StyledTableCell} from './reusable/StyledTableCell';
 
-const StyledTableCell = withStyles(() => ({
-    head: {
-      backgroundColor: '#EEE',
-      fontSize: '1.3rem',
-      fontWeight: 'bold'
-    },
-    body: {
-        fontSize: '1rem'
-    },
-  }))(TableCell);
-
-const CancelButton = withStyles(() => ({
-    root: {
-      color: 'red',
-      fontSize: '1.4rem',
-      fontWeight: 'bold',
-    },
-  }))(Button);
-
-  const MainButton = withStyles(() => ({
-    root: {
-      fontSize: '1.5rem',
-      fontWeight: 'bold',
-    },
-  }))(Button);
 
   const useStyles = makeStyles((theme) => ({
     paper: {

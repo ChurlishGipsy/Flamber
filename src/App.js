@@ -7,7 +7,6 @@ import Settings from './components/Settings';
 import CreateWallet from './components/CreateWallet';
 import RealAssets from './components/RealAssets';
 import UpdateAssets from './components/UpdateAssets';
-import SignUp from './components/auth/SignUp';
 import {BrowserRouter as Router, Route, Switch } from 'react-router-dom'; 
 import UserContextProvider from './contexts/UserContext';
 import {createMuiTheme, ThemeProvider } from '@material-ui/core';
@@ -38,9 +37,6 @@ function App() {
               </Route>
               <Route path="/model-assets">
                 <Wallet/>
-              </Route>
-              <Route path="/auth">
-                <SignUp/>
               </Route>
               <Route path="/overview">
                 <Overview/>

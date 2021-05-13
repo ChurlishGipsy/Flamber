@@ -1,29 +1,12 @@
-import { Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper} from '@material-ui/core';
-import { makeStyles, withStyles} from '@material-ui/core/styles';
+import { Table, TableBody, TableContainer, TableHead, TableRow, Paper} from '@material-ui/core';
+import { makeStyles} from '@material-ui/core/styles';
 import { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { UserContext } from '../contexts/UserContext';
 import {CircularProgress} from '@material-ui/core';
+import {MainButton} from './reusable/MainButton';
+import {StyledTableCell} from './reusable/StyledTableCell';
 
-
-    const StyledTableCell = withStyles(() => ({
-      head: {
-        backgroundColor: '#EEE',
-        fontSize: '1.3rem',
-        fontWeight: 'bold'
-      },
-      body: {
-          fontSize: '1rem'
-      },
-    }))(TableCell);
-
-
-  const MainButton = withStyles(() => ({
-    root: {
-      fontSize: '1.3rem',
-      fontWeight: 'bold'
-    },
-  }))(Button);
 
   const useStyles = makeStyles((theme) => ({
     paper: {

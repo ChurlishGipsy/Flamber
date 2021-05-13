@@ -1,28 +1,14 @@
 import {Link, useHistory} from 'react-router-dom';
 import { UserContext } from '../contexts/UserContext';
 import { useContext, useEffect, useState } from 'react';
-import { makeStyles, withStyles} from '@material-ui/core/styles';
+import { makeStyles} from '@material-ui/core/styles';
 import {CircularProgress, TextField} from '@material-ui/core';
+import { Table, TableBody, TableContainer, TableHead, TableRow, Paper} from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
+import {MainButton} from './reusable/MainButton';
+import {CancelButton} from './reusable/CancelButton';
+import {StyledTableCell} from './reusable/StyledTableCell';
 
-import { Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper} from '@material-ui/core';
-
-
-
-const MainButton = withStyles(() => ({
-    root: {
-      fontSize: '1.2rem',
-      fontWeight: 'bold'
-    },
-  }))(Button);
-
-  const CancelButton = withStyles(() => ({
-    root: {
-      color: 'red',
-      fontSize: '1.2rem',
-      fontWeight: 'bold',
-    },
-  }))(Button);
 
   const useStyles = makeStyles((theme) => ({
     paper: {
@@ -37,17 +23,6 @@ const MainButton = withStyles(() => ({
         minWidth: 500
     }
   }));
-
-  const StyledTableCell = withStyles(() => ({
-    head: {
-      backgroundColor: '#EEE',
-      fontSize: '1.3rem',
-      fontWeight: 'bold'
-    },
-    body: {
-        fontSize: '1rem'
-    },
-  }))(TableCell);
 
 const UpdateAssets = () => {
 

@@ -2,32 +2,15 @@ import { useContext, useEffect } from 'react';
 import { UserContext } from '../contexts/UserContext';
 import { makeStyles, withStyles} from '@material-ui/core/styles';
 import {Link} from 'react-router-dom';
-import { Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper} from '@material-ui/core';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper} from '@material-ui/core';
 import {CircularProgress} from '@material-ui/core';
 import empty from '../assets/empty.png';
 import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import TrendingDownIcon from '@material-ui/icons/TrendingDown';
 import DragHandleIcon from '@material-ui/icons/DragHandle';
 import percentRound from 'percent-round';
-
-const StyledTableCell = withStyles(() => ({
-    head: {
-      backgroundColor: '#EEE',
-      fontSize: '1.3rem',
-      fontWeight: 'bold'
-    },
-    body: {
-        fontSize: '1rem'
-    },
-  }))(TableCell);
-
-
-const MainButton = withStyles(() => ({
-  root: {
-    fontSize: '1.3rem',
-    fontWeight: 'bold',
-  },
-}))(Button);
+import {MainButton} from './reusable/MainButton';
+import {StyledTableCell} from './reusable/StyledTableCell';
 
 
 const useStyles = makeStyles((theme) => ({
