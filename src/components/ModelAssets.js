@@ -20,7 +20,7 @@ import {CircularProgress} from '@material-ui/core';
 
   const MainButton = withStyles(() => ({
     root: {
-      fontSize: '1.2rem',
+      fontSize: '1.3rem',
       fontWeight: 'bold'
     },
   }))(Button);
@@ -59,7 +59,6 @@ const ModelAssets = () => {
                                 <TableRow>
                                     <StyledTableCell align="center">Model Asset Name </StyledTableCell>
                                     <StyledTableCell align="center">Composition</StyledTableCell>
-                                    {/* <StyledTableCell align="center">Composition zł</StyledTableCell> */}
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -67,7 +66,6 @@ const ModelAssets = () => {
                                     <TableRow key={asset.id}>
                                         <StyledTableCell align="center">{asset.name}</StyledTableCell>
                                         <StyledTableCell align="center">{asset.percentage.toFixed(1)} %</StyledTableCell>
-                                        {/* <StyledTableCell align="center">{(asset.percentage * data.initialAssets / 100).toFixed(2).toString().replace(/\./g, ',')}</StyledTableCell> */}
                                     </TableRow>
                                 ))}
                             </TableBody>

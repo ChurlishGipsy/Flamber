@@ -1,12 +1,13 @@
 import './App.css';
 import Navigation from './components/navigation/Navigation';
 import Wallet from './components/Wallet';
+import Home from './components/Home';
 import Overview from './components/Overview';
 import Settings from './components/Settings';
 import CreateWallet from './components/CreateWallet';
 import RealAssets from './components/RealAssets';
 import UpdateAssets from './components/UpdateAssets';
-import Auth from './components/Auth';
+import SignUp from './components/auth/SignUp';
 import {BrowserRouter as Router, Route, Switch } from 'react-router-dom'; 
 import UserContextProvider from './contexts/UserContext';
 import {createMuiTheme, ThemeProvider } from '@material-ui/core';
@@ -32,11 +33,14 @@ function App() {
         <UserContextProvider>
           <div className="content">
             <Switch>
-              <Route exact path="/">
+            <Route exact path="/">
+                <Home/>
+              </Route>
+              <Route path="/model-assets">
                 <Wallet/>
               </Route>
               <Route path="/auth">
-                <Auth/>
+                <SignUp/>
               </Route>
               <Route path="/overview">
                 <Overview/>

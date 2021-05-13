@@ -1,4 +1,4 @@
-import logo2 from '../../assets/wallet-icon.png';
+import logo from '../../assets/wallet-icon.png';
 import {NavData} from './NavData';
 import SubNav from './SubNav';
 
@@ -7,7 +7,7 @@ const Navigation = () => {
     return ( 
         <div className="navigation">
                 <div className="logo-background">
-                    <img src={logo2} alt="Logo" style={{ color: '#E6AF2E'}}/>
+                    <img src={logo} alt="Logo"/>
                 </div>
                 {/* <NavLink exact={true} activeClassName='is-active' to="/" className="nav-link">
                     <p>Wallet</p>

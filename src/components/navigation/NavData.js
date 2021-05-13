@@ -16,7 +16,7 @@ export const NavData = [
         subNav: [
            {
                 title: 'Model Wallet',
-                path: '/',
+                path: '/model-assets',
                 icon: <AssessmentIcon/>
            },
            {

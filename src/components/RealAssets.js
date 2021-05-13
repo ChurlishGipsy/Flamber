@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { UserContext } from '../contexts/UserContext';
 import { makeStyles, withStyles} from '@material-ui/core/styles';
 import {Link} from 'react-router-dom';
@@ -92,7 +92,6 @@ const RealAssets = () => {
                             </TableHead>
                             <TableBody>
                                 {data.realWalletUpdates[data.realWalletUpdates.length - 1].realWallet.map((asset, index) => (
-                                    
                                     <TableRow key={asset.id}>
                                         <StyledTableCell align="center">{asset.name}</StyledTableCell>
                                         <StyledTableCell align="center">{asset.value.toFixed(2).toString().replace(/\./g, ',')} zł</StyledTableCell>
