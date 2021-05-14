@@ -25,7 +25,7 @@
 }
 
 .navigation {
-  background-color: rgb(25, 48, 150);
+  background-color: #193096;
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -166,7 +166,7 @@ input {
 
 .modal-header {
   width: 100%;
-  background-color: rgb(25, 48, 150);
+  background-color: #193096;
   display: flex;
   align-items: center;
   color: white;
@@ -234,29 +234,33 @@ input {
   justify-content: space-evenly;
   
 }
-.auth-background {
-  /* background:linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.8)), url(./assets/auth.jpg); */
-  background-size: cover;
-}
 
 .auth-container {
-  width: 30%;
-  height: 70%;
+  margin: 5% auto;
+  width: 25%;
+  height: 60%;
   border-radius: 20px;
   background-color: #FFF;
-  box-shadow: 1px 1px 3px 3px #ccc;
+  display: flex;
+  flex-direction: column;
+  /* box-shadow: 1px 1px 1px 1px #ccc; */
 }
 
 .auth-title {
   height: 20%;
-  background: linear-gradient(rgb(10, 17, 66), rgb(25, 48, 150));
+  background-color: #193096;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 2.2rem;
-  color: #966a03;
+  color: #fff;
   border-radius: 20px 20px 0 0;
   font-weight: bold;
+}
+
+.auth-icon {
+  padding: 20px 0;
+  margin: 0 auto;
 }
 
 .starting-message {
