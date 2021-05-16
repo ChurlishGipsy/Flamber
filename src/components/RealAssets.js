@@ -1,8 +1,8 @@
 import { useContext, useEffect } from 'react';
 import { UserContext } from '../contexts/UserContext';
-import { makeStyles, withStyles} from '@material-ui/core/styles';
+import { makeStyles} from '@material-ui/core/styles';
 import {Link} from 'react-router-dom';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper} from '@material-ui/core';
+import { Table, TableBody, TableContainer, TableHead, TableRow, Paper} from '@material-ui/core';
 import {CircularProgress} from '@material-ui/core';
 import empty from '../assets/empty.png';
 import TrendingUpIcon from '@material-ui/icons/TrendingUp';
@@ -79,7 +79,6 @@ const RealAssets = () => {
                                         <StyledTableCell align="center">{asset.name}</StyledTableCell>
                                         <StyledTableCell align="center">{asset.value.toFixed(2).toString().replace(/\./g, ',')} zł</StyledTableCell>
                                         <StyledTableCell align="center">{calcPercentage(index)} %</StyledTableCell>
-                                        {/* <StyledTableCell align="center">{100*(asset.value / data.realWalletUpdates[data.realWalletUpdates.length - 1].currentAssets).toFixed(3) } %</StyledTableCell> */}
                                         <StyledTableCell align="center">
                                           {100*(asset.value / data.realWalletUpdates[data.realWalletUpdates.length - 1].currentAssets).toFixed(4) > data.modelWallet[asset.id-1].percentage 
                                           && <div className="parallel">
@@ -113,7 +112,7 @@ const RealAssets = () => {
                     </div>}
             </div>
             <div className="bottom-buttons">
-              <Link style={{ textDecoration: 'none' }} to="/"><MainButton color="primary" variant="text">Model Wallet</MainButton></Link>
+              <Link style={{ textDecoration: 'none' }} to="/model-assets"><MainButton color="primary" variant="text">Model Wallet</MainButton></Link>
               <Link style={{ textDecoration: 'none' }} to="/update-assets"><MainButton color="secondary" variant="contained">Update Assets</MainButton></Link>
             </div>
         </div>

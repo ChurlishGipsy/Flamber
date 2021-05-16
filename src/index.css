@@ -12,10 +12,15 @@
 
 
 .App {
-  height: 100vh;
-  width: 100vw;
+  /* height: 100vh;
+  width: 100vw; */
   display: grid;
   grid-template-columns: 15vw auto;
+}
+
+.wrapper {
+  height: 100vh;
+  width: 100vw;
 }
 
 .content {
@@ -237,7 +242,7 @@ input {
 
 .auth-container {
   margin: 5% auto;
-  width: 25%;
+  width: 30%;
   height: 60%;
   border-radius: 20px;
   background-color: #FFF;
@@ -259,10 +264,19 @@ input {
 }
 
 .auth-icon {
-  padding: 20px 0;
+  padding: 30px 10px 0;
   margin: 0 auto;
 }
 
+.auth-form-container {
+  height: 70%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 0;
+  justify-content: space-evenly;
+}
+ 
 .starting-message {
   display: flex;
   align-items: center;

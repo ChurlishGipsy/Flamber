@@ -113,7 +113,7 @@ import {StyledTableCell} from './reusable/StyledTableCell';
     }
 
     const handleCancel = () => {
-        history.push('/')
+        history.push('/model-assets')
     }
 
     const handleModalClose = () => {
@@ -241,19 +241,6 @@ import {StyledTableCell} from './reusable/StyledTableCell';
                       {percentageSum === 100 && <div className="centered-container">
                         <img style={{paddingTop: 50}} src={save} alt="Save Icon"/>
                         <p className="modal-info">Would you like to save your model wallet?</p>
-                        {/* <div className="centered-container">
-                        <form onSubmit={handleAssetsSave}>
-                              <TextField
-                              color="primary"
-                              required
-                              value={initialAssets}
-                              variant="outlined"
-                               label="Amount"
-                               onChange={(e) => setInitialAssets(e.target.value)}
-                               helperText={initialAssetsHelperText}
-                               error={initialAssetsError}/>
-                            </form>
-                        </div> */}
                         <div className="modal-bottom-buttons" style={{paddding: '5px !important'}}>
                             <CancelButton onClick={handleModalClose}>Cancel</CancelButton>
                             <MainButton color="secondary" variant="contained" onClick={handleAssetsSave}>Save</MainButton>

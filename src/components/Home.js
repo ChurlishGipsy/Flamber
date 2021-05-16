@@ -4,18 +4,12 @@ import Welcome from './auth/Welcome';
 import SignUp from './auth/SignUp';
 import Login from './auth/Login';
 import { useState } from 'react';
-import { useEffect } from 'react';
 
 
 const Home = () => {
 
     const [login, setLogin] = useState(false);
     const [signUp, setSignUp] = useState(false);
-
-    useEffect(() => {
-        console.log(login);
-        console.log(signUp);
-    }, [login, signUp])
 
     const handleLogin = () => {
         setLogin(true);
@@ -38,8 +32,8 @@ const Home = () => {
             </div>
             {!login && !signUp && <Welcome/>}
             
-            {!login && signUp && <SignUp/>}
-            {login && !signUp && <Login/>}
+            {!login && signUp && <SignUp setSignUp={setSignUp}/>}
+            {login && !signUp && <Login setLogin={setLogin}/>}
         </div>
            
      );
