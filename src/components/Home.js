@@ -31,7 +31,6 @@ const Home = () => {
                 </div>
             </div>
             {!login && !signUp && <Welcome/>}
-            
             {!login && signUp && <SignUp setSignUp={setSignUp}/>}
             {login && !signUp && <Login setLogin={setLogin}/>}
         </div>

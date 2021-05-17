@@ -10,12 +10,11 @@ import { useHistory } from 'react-router';
 
 const Navigation = () => {
 
-    // const {logout} = useContext(AuthContext);
     const { logout, currentUser } = useContext(AuthContext);
     const [error, setError] = useState('');
     const history = useHistory();
 
-    async function handleLogout  () {
+    async function handleLogout() {
         try {
             await logout();
             history.push('/')

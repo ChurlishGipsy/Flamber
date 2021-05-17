@@ -138,7 +138,7 @@ import {StyledTableCell} from './reusable/StyledTableCell';
         }).then(() => {
         setData(updatedData)
         setIsPending(false);
-        history.push('/');
+        history.push('/model-assets');
            })
         setInitialAssetsOpen(false);
             
@@ -164,7 +164,7 @@ import {StyledTableCell} from './reusable/StyledTableCell';
             }).then(() => {
             setData(updatedWallet);
             setIsPending(false);
-            history.push('/');
+            history.push('/model-assets');
                 }) 
         }
     }

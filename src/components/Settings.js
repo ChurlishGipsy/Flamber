@@ -2,13 +2,15 @@ import {useContext, useState, useEffect} from 'react'
 import { UserContext } from "../contexts/UserContext";
 import {CircularProgress} from '@material-ui/core';
 import {MainButton} from './reusable/MainButton';
-
+import { AuthContext } from '../contexts/AuthContext';
 
 
 
 
 
 const Settings = () => {
+    
+    const {currentUser} = useContext(AuthContext);
     const {data, setData} = useContext(UserContext)
     const [isPending, setIsPending] = useState(false);
 
@@ -38,6 +40,7 @@ const Settings = () => {
     return data ? ( 
         <div className="centered">
             <h2 className="overview-title">Settings</h2>
+            {currentUser.email}
             {!isPending && <MainButton color="secondary" variant="contained" onClick={handleReset}>Reset Data</MainButton>}
             {isPending && <div className="centered"><CircularProgress size='6rem'/></div>}
         </div>

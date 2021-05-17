@@ -48,7 +48,6 @@ const RealAssets = () => {
           composition.push(100*(asset.value / data.realWalletUpdates[data.realWalletUpdates.length - 1].currentAssets))
         })
       const calculatedComposition = percentRound(composition,2)
-      console.log((calculatedComposition[index]));
       return calculatedComposition[index].toFixed(2);
       } 
     }

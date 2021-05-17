@@ -1,5 +1,4 @@
 
-import { ArrowRightOutlined } from '@material-ui/icons';
 import {createContext, useState, useEffect } from 'react';
 import { auth } from '../firebase';
 

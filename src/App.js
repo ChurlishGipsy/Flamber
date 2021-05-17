@@ -7,11 +7,11 @@ import Settings from './components/Settings';
 import CreateWallet from './components/CreateWallet';
 import RealAssets from './components/RealAssets';
 import UpdateAssets from './components/UpdateAssets';
-import {BrowserRouter as Router, Route, Switch } from 'react-router-dom'; 
+import PrivateRoute from './components/PrivateRoute';
+import {BrowserRouter as Router, Route, Switch,Redirect } from 'react-router-dom'; 
 import UserContextProvider from './contexts/UserContext';
 import {createMuiTheme, ThemeProvider } from '@material-ui/core';
-import AuthContextProvider, { AuthContext } from './contexts/AuthContext';
-import { useContext } from 'react';
+import AuthContextProvider from './contexts/AuthContext';
 
 const theme = createMuiTheme({
   palette: {
@@ -33,9 +33,7 @@ function App() {
         <Router>
           <div className="wrapper">
             <Switch>
-              <Route exact path="/">
-                <Home/>
-              </Route>
+              <Route exact path="/" component={Home}/>
             </Switch>
             <UserContextProvider>
               <div  className="App">
@@ -45,24 +43,12 @@ function App() {
                 {/* <Route exact path="/">
                     <Home/>
                   </Route> */}
-                  <Route path="/model-assets">
-                    <Wallet/>
-                  </Route>
-                  <Route path="/overview">
-                    <Overview/>
-                  </Route>
-                  <Route path="/settings">
-                    <Settings/>
-                  </Route>
-                  <Route path="/create">
-                    <CreateWallet/>
-                  </Route>
-                  <Route path="/real-assets">
-                    <RealAssets/>
-                  </Route>
-                  <Route path="/update-assets">
-                    <UpdateAssets/>
-                  </Route>
+                  <PrivateRoute path="/model-assets" component={Wallet}/>
+                  <PrivateRoute path="/overview" component={Overview}/>
+                  <PrivateRoute path="/settings" component={Settings}/>
+                  <PrivateRoute path="/create" component={CreateWallet}/>
+                  <PrivateRoute path="/real-assets" component={RealAssets}/>
+                  <PrivateRoute path="/update-assets" component={UpdateAssets}/>
                 </Switch> 
               </div>
               </div>

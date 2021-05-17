@@ -6,6 +6,7 @@ import { UserContext } from '../contexts/UserContext';
 import {CircularProgress} from '@material-ui/core';
 import {MainButton} from './reusable/MainButton';
 import {StyledTableCell} from './reusable/StyledTableCell';
+import { AuthContext } from '../contexts/AuthContext';
 
 
   const useStyles = makeStyles((theme) => ({
