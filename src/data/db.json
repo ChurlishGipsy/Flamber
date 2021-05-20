@@ -3,7 +3,7 @@
     "doesWalletExist": true,
     "modelWallet": [
       {
-        "name": "Obligacje indeksowane inflacją",
+        "name": "Obligacje indeksowane inflacją ",
         "percentage": 50,
         "id": 1
       },
@@ -13,7 +13,7 @@
         "id": 2
       },
       {
-        "name": "Akcje spółek wzrostowych",
+        "name": "Akcje spółek wzrostowych ",
         "percentage": 15,
         "id": 3
       },
@@ -27,7 +27,7 @@
       {
         "realWallet": [
           {
-            "name": "Obligacje indeksowane inflacją",
+            "name": "Obligacje indeksowane inflacją ",
             "value": 10000,
             "id": 1
           },
@@ -37,7 +37,7 @@
             "id": 2
           },
           {
-            "name": "Akcje spółek wzrostowych",
+            "name": "Akcje spółek wzrostowych ",
             "value": 947.4,
             "id": 3
           },
@@ -47,13 +47,13 @@
             "id": 4
           }
         ],
-        "date": "14/5/2021",
+        "date": "20/5/2021",
         "currentAssets": 15028
       },
       {
         "realWallet": [
           {
-            "name": "Obligacje indeksowane inflacją",
+            "name": "Obligacje indeksowane inflacją ",
             "value": 10000,
             "id": 1
           },
@@ -63,7 +63,7 @@
             "id": 2
           },
           {
-            "name": "Akcje spółek wzrostowych",
+            "name": "Akcje spółek wzrostowych ",
             "value": 2515.23,
             "id": 3
           },
@@ -77,6 +77,6 @@
         "currentAssets": 16595.829999999998
       }
     ],
-    "creationDate": "14/5/2021"
+    "creationDate": "20/5/2021"
   }
 }

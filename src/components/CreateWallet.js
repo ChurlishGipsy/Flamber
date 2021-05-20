@@ -4,12 +4,12 @@ import { useState, useEffect,  useContext } from 'react';
 import {useHistory} from 'react-router-dom';
 import { makeStyles} from '@material-ui/core/styles';
 import {CircularProgress} from '@material-ui/core';
-import ClearIcon from '@material-ui/icons/Clear';
 import { UserContext } from '../contexts/UserContext';
 import save from '../assets/save.png'
 import ErrorIcon from '@material-ui/icons/Error';
 import {MainButton} from './reusable/MainButton';
 import {CancelButton} from './reusable/CancelButton';
+import ClearIcon from '@material-ui/icons/Clear';
 import {StyledTableCell} from './reusable/StyledTableCell';
 
 
@@ -257,8 +257,6 @@ import {StyledTableCell} from './reusable/StyledTableCell';
 
                       </div>
                       }
-                      
-                      
                     </div>
                 </Modal>
             </div>}
