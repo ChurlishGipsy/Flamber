@@ -3,7 +3,7 @@ import { UserContext } from "../contexts/UserContext";
 import {CircularProgress} from '@material-ui/core';
 import {MainButton} from './reusable/MainButton';
 import { AuthContext } from '../contexts/AuthContext';
-
+import { Grid } from '@material-ui/core';
 
 
 
@@ -40,7 +40,7 @@ const Settings = () => {
     return data ? ( 
         <div className="centered">
             <h2 className="overview-title">Settings</h2>
-            {currentUser.email}
+            <p><b style={{marginRight: 10}}>E-mail:</b> {currentUser.email}</p>
             {!isPending && <MainButton color="secondary" variant="contained" onClick={handleReset}>Reset Data</MainButton>}
             {isPending && <div className="centered"><CircularProgress size='6rem'/></div>}
         </div>

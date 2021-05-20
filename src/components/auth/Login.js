@@ -5,6 +5,8 @@ import {AuthCancelButton} from '../reusable/AuthCancelButton';
 import { AuthContext } from '../../contexts/AuthContext';
 import { useHistory } from 'react-router';
 import { Alert } from '@material-ui/lab';
+import { Link } from 'react-router-dom';
+
 
 
 const Login = ({setLogin}) => {
@@ -36,7 +38,7 @@ const Login = ({setLogin}) => {
             <form onSubmit={handleSubmit} className="auth-form-container">
                 <TextField type="email" inputRef={emailRef} required label="Email" color="secondary" variant="outlined"></TextField>
                 <TextField style={{margin: 5}} type="password" inputRef={passwordRef} required label="Password" color="secondary" variant="outlined"></TextField>
-                <Button style={{margin: 10}} color="secondary" variant="text" size="small">Forgot password?</Button>
+                <Link style={{textDecoration: 'none'}} to="/forgot-password"><Button style={{margin: 10}} color="secondary" variant="text" size="small">Forgot password?</Button></Link>
                 <Button style={{margin: 10}} disabled={loading} color="secondary" variant="contained" size="large" onClick={handleSubmit}>Login</Button>
                 {error && <Alert variant="filled" severity="error">{error}</Alert>}
                 <AuthCancelButton  onClick={() => setLogin(false)}>Cancel</AuthCancelButton>

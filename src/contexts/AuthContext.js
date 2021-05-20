@@ -21,11 +21,16 @@ const AuthContextProvider = (props) => {
         return auth.signOut()
     }
 
+    const resetPassword = (email) => {
+        return auth.sendPasswordResetEmail(email);
+    }
+
     const value = {
         currentUser,
         signUp,
         login,
-        logout
+        logout,
+        resetPassword
     }
 
     useEffect(() => {

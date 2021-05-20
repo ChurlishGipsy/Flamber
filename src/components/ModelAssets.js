@@ -6,7 +6,6 @@ import { UserContext } from '../contexts/UserContext';
 import {CircularProgress} from '@material-ui/core';
 import {MainButton} from './reusable/MainButton';
 import {StyledTableCell} from './reusable/StyledTableCell';
-import { AuthContext } from '../contexts/AuthContext';
 
 
   const useStyles = makeStyles((theme) => ({
@@ -25,7 +24,7 @@ import { AuthContext } from '../contexts/AuthContext';
 
 const ModelAssets = () => {
 
-    const {data, setData} = useContext(UserContext)
+    const {data} = useContext(UserContext)
     const classes = useStyles();
     
     useEffect(() => {

@@ -3,6 +3,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;1,300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=PT+Sans&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lora&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Playfair+Display:wght@600&display=swap');
+
 /* base styles */
 * {
   margin: 0;
@@ -18,10 +20,6 @@
   grid-template-columns: 15vw auto;
 }
 
-.wrapper {
-  /* height: 100vh;
-  width: 100vw; */
-}
 
 .content {
   background-color:#fff;
@@ -55,30 +53,10 @@
 }
 
 .sidebar-link:hover {
-  background-color: rgb(1, 22, 92);
+  background-color: #01165c;
   border-left: 4px solid #fff;
   cursor: pointer;
 }
-
-
-
-.is-active
- {
-  background-color: rgb(0, 17, 87);
-}
-
-/* .white-container {
-  width: 30%;
-  background-color: #fff;
-  height: 60%;
-  border-radius: 3px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding: 30px 0;
-} */
-
 
 .action-btn {
   display: inline-block;
@@ -98,6 +76,15 @@
   padding: 50px 0;
   color: #E6AF2E;
 }
+
+.main-title {
+  font-family: 'Playfair Display';
+  color: #fff;
+  font-size: 10rem;
+  text-shadow: 3px 3px #E6AF2E;
+}
+
+
 
 
 .wallet-form {
@@ -119,10 +106,6 @@
   display: flex;
   justify-content: space-evenly;
   color: #E6AF2E;
-}
-
-input {
-  font-size: 1.8rem;
 }
 
 .centered-container {
@@ -218,20 +201,24 @@ input {
   height: 100vh;
   background: url(./assets/wallet.jpg);
   background-size: cover;
-  
+
+}
+
+.home-template {
+  display: grid;
+  grid-template-rows: 10% 90%;
 }
 
 .home-header {
   width: 100%;
   background-color: #fff;
-  height: 10%;
   border-bottom: 5px #E6AF2E solid;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 0;
-  margin-bottom: 50px;
+  padding: 40px 0;
+  flex: 0 1 auto;
 }
 
 .home-header-nav {
@@ -240,7 +227,13 @@ input {
   flex-direction: row;
   margin-right: 50px;
   justify-content: space-evenly;
-  
+}
+
+.home-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1 1 auto;
 }
 
 .auth-clicked {
@@ -283,6 +276,26 @@ input {
   padding: 10px 0;
   justify-content: space-evenly;
 }
+
+.about-container {
+  
+  background-color: #fff;
+}
+
+/* .about-left {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.about-img {
+  width: 100%;
+}
+
+.about-right {
+
+} */
  
 .starting-message {
   display: flex;

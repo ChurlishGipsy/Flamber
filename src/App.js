@@ -7,11 +7,13 @@ import Settings from './components/Settings';
 import CreateWallet from './components/CreateWallet';
 import RealAssets from './components/RealAssets';
 import UpdateAssets from './components/UpdateAssets';
+import ForgotPassword from './components/auth/ForgotPassword';
 import PrivateRoute from './components/PrivateRoute';
-import {BrowserRouter as Router, Route, Switch,Redirect } from 'react-router-dom'; 
+import {BrowserRouter as Router, Route, Switch } from 'react-router-dom'; 
 import UserContextProvider from './contexts/UserContext';
 import {createMuiTheme, ThemeProvider } from '@material-ui/core';
 import AuthContextProvider from './contexts/AuthContext';
+import About from './components/About';
 
 const theme = createMuiTheme({
   palette: {
@@ -31,18 +33,17 @@ function App() {
     <ThemeProvider theme={theme}>
       <AuthContextProvider>
         <Router>
-          <div className="wrapper">
+          <div>
             <Switch>
               <Route exact path="/" component={Home}/>
+              <Route path="/forgot-password" component={ForgotPassword}/>
+              <Route path="/about" component={About}></Route>
             </Switch>
             <UserContextProvider>
               <div  className="App">
               <Navigation/>
               <div className="content">
                 <Switch>
-                {/* <Route exact path="/">
-                    <Home/>
-                  </Route> */}
                   <PrivateRoute path="/model-assets" component={Wallet}/>
                   <PrivateRoute path="/overview" component={Overview}/>
                   <PrivateRoute path="/settings" component={Settings}/>
