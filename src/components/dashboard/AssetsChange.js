@@ -23,7 +23,6 @@ const AssetsChange = () => {
         if (!data) return;
         else {
             checkAssetsChange(data);
-            console.log(assetsChange)
         }
     }, [data,assetsChange, percentageChange])
 

@@ -3,80 +3,12 @@
     "doesWalletExist": true,
     "modelWallet": [
       {
-        "name": "Obligacje indeksowane inflacją ",
-        "percentage": 50,
+        "name": "test",
+        "percentage": 100,
         "id": 1
-      },
-      {
-        "name": "ETF",
-        "percentage": 20,
-        "id": 2
-      },
-      {
-        "name": "Akcje spółek wzrostowych ",
-        "percentage": 15,
-        "id": 3
-      },
-      {
-        "name": "Akcje spółek dywidendowych",
-        "percentage": 15,
-        "id": 4
       }
     ],
-    "realWalletUpdates": [
-      {
-        "realWallet": [
-          {
-            "name": "Obligacje indeksowane inflacją ",
-            "value": 10000,
-            "id": 1
-          },
-          {
-            "name": "ETF",
-            "value": 1257,
-            "id": 2
-          },
-          {
-            "name": "Akcje spółek wzrostowych ",
-            "value": 947.4,
-            "id": 3
-          },
-          {
-            "name": "Akcje spółek dywidendowych",
-            "value": 2823.6,
-            "id": 4
-          }
-        ],
-        "date": "20/5/2021",
-        "currentAssets": 15028
-      },
-      {
-        "realWallet": [
-          {
-            "name": "Obligacje indeksowane inflacją ",
-            "value": 10000,
-            "id": 1
-          },
-          {
-            "name": "ETF",
-            "value": 1257,
-            "id": 2
-          },
-          {
-            "name": "Akcje spółek wzrostowych ",
-            "value": 2515.23,
-            "id": 3
-          },
-          {
-            "name": "Akcje spółek dywidendowych",
-            "value": 2823.6,
-            "id": 4
-          }
-        ],
-        "date": "20/5/2021",
-        "currentAssets": 16595.829999999998
-      }
-    ],
-    "creationDate": "20/5/2021"
+    "realWalletUpdates": [],
+    "creationDate": "1/6/2021"
   }
 }

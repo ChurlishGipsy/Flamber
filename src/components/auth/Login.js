@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 
 const Login = ({setLogin}) => {
 
-    const { login } = useContext(AuthContext);
+    const { login, persistence } = useContext(AuthContext);
     const emailRef = useRef();
     const passwordRef = useRef();
     const [error, setError] = useState('')
@@ -23,6 +23,7 @@ const Login = ({setLogin}) => {
         try {
             setError('')
             setLoading(true)
+            await persistence();
             await login(emailRef.current.value, passwordRef.current.value);
             history.push('/model-assets');
         } catch  {

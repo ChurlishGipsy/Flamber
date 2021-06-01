@@ -1,98 +1,82 @@
 {
   "user": {
     "doesWalletExist": true,
-    "initialAssets": 10000,
     "modelWallet": [
       {
-        "name": "Obligacje indeksowane inflacją",
+        "name": "Obligacje indeksowane inflacją ",
         "percentage": 50,
         "id": 1
       },
       {
-        "name": "ETF na rynki rozwinięte",
-        "percentage": 15,
+        "name": "ETF",
+        "percentage": 20,
         "id": 2
       },
       {
-        "name": "ETF na rynki wschodzące ",
+        "name": "Akcje spółek wzrostowych ",
         "percentage": 15,
         "id": 3
       },
       {
-        "name": "Złoto",
-        "percentage": 10,
+        "name": "Akcje spółek dywidendowych",
+        "percentage": 15,
         "id": 4
-      },
-      {
-        "name": "Akcje",
-        "percentage": 10,
-        "id": 5
       }
     ],
     "realWalletUpdates": [
       {
         "realWallet": [
           {
-            "name": "Obligacje indeksowane inflacją",
+            "name": "Obligacje indeksowane inflacją ",
             "value": 10000,
             "id": 1
           },
           {
-            "name": "ETF na rynki rozwinięte",
-            "value": 0,
+            "name": "ETF",
+            "value": 1257,
             "id": 2
           },
           {
-            "name": "ETF na rynki wschodzące ",
-            "value": 0,
+            "name": "Akcje spółek wzrostowych ",
+            "value": 947.4,
             "id": 3
           },
           {
-            "name": "Złoto",
-            "value": 0,
+            "name": "Akcje spółek dywidendowych",
+            "value": 2823.6,
             "id": 4
-          },
-          {
-            "name": "Akcje",
-            "value": 1379.8,
-            "id": 5
           }
         ],
-        "date": "3/4/2021",
-        "currentAssets": 11379.8
+        "date": "20/5/2021",
+        "currentAssets": 15028
       },
       {
         "realWallet": [
           {
-            "name": "Obligacje indeksowane inflacją",
-            "value": 12500,
+            "name": "Obligacje indeksowane inflacją ",
+            "value": 10000,
             "id": 1
           },
           {
-            "name": "ETF na rynki rozwinięte",
-            "value": 1000,
+            "name": "ETF",
+            "value": 1257,
             "id": 2
           },
           {
-            "name": "ETF na rynki wschodzące ",
-            "value": 1500,
+            "name": "Akcje spółek wzrostowych ",
+            "value": 2515.23,
             "id": 3
           },
           {
-            "name": "Złoto",
-            "value": 0,
+            "name": "Akcje spółek dywidendowych",
+            "value": 2823.6,
             "id": 4
-          },
-          {
-            "name": "Akcje",
-            "value": 1379.8,
-            "id": 5
           }
         ],
-        "date": "3/4/2021",
-        "currentAssets": 16379.8
+        "date": "20/5/2021",
+        "currentAssets": 16595.829999999998
       }
     ],
-    "creationDate": "3/4/2021"
+    "creationDate": "20/5/2021"
   }
 }

@@ -45,7 +45,7 @@ const DoughtnutChart = () => {
 
     return ( 
         <div>
-            <h2>Actual Wallet Composition</h2>
+            <h2>Wallet Composition</h2>
             <Doughnut data={chartData} />
         </div>
      );

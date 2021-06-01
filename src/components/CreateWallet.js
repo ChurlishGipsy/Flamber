@@ -1,16 +1,19 @@
-import AddIcon from '@material-ui/icons/Add';
-import {Modal, TextField, Table, TableBody, TableContainer, TableHead, TableRow, Paper } from '@material-ui/core';
 import { useState, useEffect,  useContext } from 'react'; 
 import {useHistory} from 'react-router-dom';
-import { makeStyles} from '@material-ui/core/styles';
-import {CircularProgress} from '@material-ui/core';
 import { UserContext } from '../contexts/UserContext';
 import save from '../assets/save.png'
 import ErrorIcon from '@material-ui/icons/Error';
+import AddIcon from '@material-ui/icons/Add';
+import ClearIcon from '@material-ui/icons/Clear';
+import {CircularProgress} from '@material-ui/core';
+import { makeStyles} from '@material-ui/core/styles';
 import {MainButton} from './reusable/MainButton';
 import {CancelButton} from './reusable/CancelButton';
-import ClearIcon from '@material-ui/icons/Clear';
 import {StyledTableCell} from './reusable/StyledTableCell';
+import {Modal, TextField, Table, TableBody, TableContainer, TableHead, TableRow, Paper } from '@material-ui/core';
+import { db } from '../firebase';
+import { AuthContext } from '../contexts/AuthContext';
+
 
 
   const useStyles = makeStyles((theme) => ({
@@ -19,7 +22,7 @@ import {StyledTableCell} from './reusable/StyledTableCell';
       width: '50%',
       backgroundColor: theme.palette.background.paper,
       boxShadow: theme.shadows[5],
-      paddingBottom: '30px'
+      padding: theme.spacing(1, 1, 1)
     },
     table: {
         minWidth: 500
@@ -35,6 +38,7 @@ import {StyledTableCell} from './reusable/StyledTableCell';
   const CreateWallet = () => {
       
     const { data, setData } = useContext(UserContext);
+    const {currentUser} =useContext(AuthContext);
     const [modelWallet, setModelWallet] = useState([]);
     const [isBeingEdited, setIsBeingEdited] = useState(false);
     const [percentageSum, setPercentageSum] = useState(0);  
@@ -121,6 +125,7 @@ import {StyledTableCell} from './reusable/StyledTableCell';
     }
 
     const handleAssetsSave = (e) => {
+        console.log('handle assets save');
         e.preventDefault();
         setIsPending(true);
         const date = new Date();
@@ -131,6 +136,22 @@ import {StyledTableCell} from './reusable/StyledTableCell';
             realWalletUpdates: [],
             creationDate: currentDate
             }
+        
+        const user = currentUser.uid
+        console.log(user);
+        db.collection("users").doc(user).set({
+            doesWalletExist: true,
+            modelWallet: modelWallet,
+            realWalletUpdates: [],
+            creationDate: currentDate
+        }).then(() => {
+            
+        })
+        .catch((error) => {
+            console.error("Error adding document: ", error);
+        });
+
+
         fetch('http://localhost:8000/user', {
         method: 'PUT',
         headers: {'Content-Type': 'application/json'},
@@ -145,6 +166,7 @@ import {StyledTableCell} from './reusable/StyledTableCell';
     }
 
     const handleSave = (e) => {
+        console.log('handle save')
         e.preventDefault();
         if (!isBeingEdited) {
             setInitialAssetsOpen(true);
@@ -165,7 +187,7 @@ import {StyledTableCell} from './reusable/StyledTableCell';
             setData(updatedWallet);
             setIsPending(false);
             history.push('/model-assets');
-                }) 
+            }) 
         }
     }
 
@@ -174,8 +196,8 @@ import {StyledTableCell} from './reusable/StyledTableCell';
     return data ? (
         <div className="centered">
             {!isPending && <div style={{minWidth: '90%'}}>
-            {modelWallet.length === 0 && <h1 className="title">Create Model Wallet</h1>}
-            {modelWallet.length > 0 && <h1 className="title">Edit Model Wallet</h1>}
+            {modelWallet.length === 0 && <h1 className="heading-info">Create Model Wallet</h1>}
+            {modelWallet.length > 0 && <h1 className="heading-info">Edit Model Wallet</h1>}
             <form onSubmit={handleAdd}>
                 {percentageSum !== 100 && <div className="wallet-form">
                     <p className="label">Asset name</p>
@@ -196,7 +218,7 @@ import {StyledTableCell} from './reusable/StyledTableCell';
                     error={percentageError}
                     onChange={(e) => setInputPercentage(e.target.value)}
                     margin="normal" />
-                    <MainButton color="primary" className="action-btn add-btn"  onClick={handleAdd}><AddIcon fontSize="large"/></MainButton>
+                    <MainButton color="primary" onClick={handleAdd}><AddIcon fontSize="large"/></MainButton>
                 </div>}
                 {modelWallet.length > 0 && 
                 <div className="assets-list">

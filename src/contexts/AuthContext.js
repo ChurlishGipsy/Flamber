@@ -14,7 +14,12 @@ const AuthContextProvider = (props) => {
     }
 
     const login = (email,password) => {
+
         return auth.signInWithEmailAndPassword(email,password);
+    }
+
+    const persistence = () => {
+        return auth.setPersistence("session");
     }
 
     const logout = () => {
@@ -30,7 +35,8 @@ const AuthContextProvider = (props) => {
         signUp,
         login,
         logout,
-        resetPassword
+        resetPassword,
+        persistence
     }
 
     useEffect(() => {

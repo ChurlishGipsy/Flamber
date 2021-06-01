@@ -12,14 +12,12 @@ const ForgotPassword = () => {
     const { resetPassword } = useContext(AuthContext);
     const emailRef = useRef();
     const [error, setError] = useState('');
-    const [message, setMessage] = useState('');
     const [loading, setLoading] = useState(false);
     const history = useHistory();
 
     async function handleSubmit  (e)  {
         e.preventDefault();
         try {
-            setMessage('');
             setError('');
             setLoading(true)
             await resetPassword(emailRef.current.value);
