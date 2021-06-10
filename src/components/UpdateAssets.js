@@ -8,7 +8,8 @@ import AddIcon from '@material-ui/icons/Add';
 import {MainButton} from './reusable/MainButton';
 import {CancelButton} from './reusable/CancelButton';
 import {StyledTableCell} from './reusable/StyledTableCell';
-
+import {db} from '../firebase';
+import { AuthContext } from '../contexts/AuthContext';
 
   const useStyles = makeStyles((theme) => ({
     paper: {
@@ -27,6 +28,7 @@ import {StyledTableCell} from './reusable/StyledTableCell';
 const UpdateAssets = () => {
 
   const {data, setData} = useContext(UserContext);
+  const {currentUser} = useContext(AuthContext);
   const [modelWallet, setModelWallet] = useState([]);
   const [realWallet, setRealWallet] = useState([]);
   const [assetValue, setAssetValue] = useState('');
@@ -46,7 +48,6 @@ const UpdateAssets = () => {
           value: parseFloat(assetValue.replace(/,/g, '.')),
           id: id
         }
-        console.log(asset)
         setRealWallet([...realWallet, asset]);
         setModelWallet(newModelWallet);
       }        
@@ -79,15 +80,23 @@ const UpdateAssets = () => {
             creationDate: data.creationDate
           }       
           setIsPending(true)   
-          fetch('http://localhost:8000/user', {
-            method: 'PUT',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(updatedData)
-            }).then(() => {
+
+          db.collection("users").doc(currentUser.uid).set(updatedData).then(() => {
             setData(updatedData);
             setIsPending(false);
             history.push('/real-assets');
-                }) 
+          })
+
+
+          // fetch('http://localhost:8000/user', {
+          //   method: 'PUT',
+          //   headers: {'Content-Type': 'application/json'},
+          //   body: JSON.stringify(updatedData)
+          //   }).then(() => {
+            // setData(updatedData);
+            // setIsPending(false);
+            // history.push('/real-assets');
+          //       }) 
         }
         
 

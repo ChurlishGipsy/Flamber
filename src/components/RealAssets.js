@@ -86,7 +86,7 @@ const RealAssets = () => {
                                           </div>}
                                           {100*(asset.value / data.realWalletUpdates[data.realWalletUpdates.length - 1].currentAssets).toFixed(4) === data.modelWallet[asset.id-1].percentage 
                                           && <div className="parallel">
-                                            <p> = 0.00 %</p>
+                                            <p>  0.00 %</p>
                                             <DragHandleIcon style={{ color: '#E6AF2E'}}/>
                                           </div>}
                                           {100*(asset.value / data.realWalletUpdates[data.realWalletUpdates.length - 1].currentAssets).toFixed(4) < data.modelWallet[asset.id-1].percentage 

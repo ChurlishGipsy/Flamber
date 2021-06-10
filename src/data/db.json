@@ -8,7 +8,19 @@
         "id": 1
       }
     ],
-    "realWalletUpdates": [],
-    "creationDate": "1/6/2021"
+    "realWalletUpdates": [
+      {
+        "realWallet": [
+          {
+            "name": "test",
+            "value": 10000,
+            "id": 1
+          }
+        ],
+        "date": "2/6/2021",
+        "currentAssets": 10000
+      }
+    ],
+    "creationDate": "2/6/2021"
   }
 }

@@ -12,6 +12,7 @@ import PrivateRoute from './components/PrivateRoute';
 import {BrowserRouter as Router, Route, Switch } from 'react-router-dom'; 
 import UserContextProvider from './contexts/UserContext';
 import {createMuiTheme, ThemeProvider } from '@material-ui/core';
+import FirestoreContextProvider from './contexts/FirestoreContext';
 import AuthContextProvider from './contexts/AuthContext';
 import About from './components/About';
 
@@ -39,21 +40,24 @@ function App() {
               <Route path="/forgot-password" component={ForgotPassword}/>
               <Route path="/about" component={About}></Route>
             </Switch>
-            <UserContextProvider>
               <div  className="App">
-              <Navigation/>
-              <div className="content">
-                <Switch>
-                  <PrivateRoute path="/model-assets" component={Wallet}/>
-                  <PrivateRoute path="/overview" component={Overview}/>
-                  <PrivateRoute path="/settings" component={Settings}/>
-                  <PrivateRoute path="/create" component={CreateWallet}/>
-                  <PrivateRoute path="/real-assets" component={RealAssets}/>
-                  <PrivateRoute path="/update-assets" component={UpdateAssets}/>
-                </Switch> 
+                <Navigation/>
+                <UserContextProvider>
+                  <FirestoreContextProvider>
+                  <div className="content">
+                    <Switch>
+                      <PrivateRoute path="/model-assets" component={Wallet}/>
+                      <PrivateRoute path="/overview" component={Overview}/>
+                      <PrivateRoute path="/settings" component={Settings}/>
+                      <PrivateRoute path="/create" component={CreateWallet}/>
+                      <PrivateRoute path="/real-assets" component={RealAssets}/>
+                      <PrivateRoute path="/update-assets" component={UpdateAssets}/>
+                    </Switch> 
+                  </div>
+                  </FirestoreContextProvider>
+                </UserContextProvider>
               </div>
-              </div>
-            </UserContextProvider>
+            
           </div>
         </Router>
         </AuthContextProvider>

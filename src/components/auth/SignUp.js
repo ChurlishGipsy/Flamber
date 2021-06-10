@@ -32,9 +32,9 @@ const SignUp = ({setSignUp}) => {
             history.push('/model-assets')
 
         } catch  {
-            setError('Failed to create an account');
+            setError('Failed to create an account! Try again.');
         }
-            setLoading(false);
+        setLoading(false);
     }
 
     return ( 

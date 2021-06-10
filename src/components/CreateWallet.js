@@ -13,6 +13,7 @@ import {StyledTableCell} from './reusable/StyledTableCell';
 import {Modal, TextField, Table, TableBody, TableContainer, TableHead, TableRow, Paper } from '@material-ui/core';
 import { db } from '../firebase';
 import { AuthContext } from '../contexts/AuthContext';
+import { FirestoreContext } from '../contexts/FirestoreContext';
 
 
 
@@ -39,6 +40,7 @@ import { AuthContext } from '../contexts/AuthContext';
       
     const { data, setData } = useContext(UserContext);
     const {currentUser} =useContext(AuthContext);
+    const {sendRealWalletUpdate} = useContext(FirestoreContext);
     const [modelWallet, setModelWallet] = useState([]);
     const [isBeingEdited, setIsBeingEdited] = useState(false);
     const [percentageSum, setPercentageSum] = useState(0);  
@@ -48,9 +50,8 @@ import { AuthContext } from '../contexts/AuthContext';
     const [percentageHelperText, setPercentageHelperText] = useState('');
     const [nameError, setNameError] = useState(false)
     const [percentageError, setPercentageError] = useState(false);
-    const [initialAssetsOpen, setInitialAssetsOpen] = useState(false);
+    const [modalOpen, setModalOpen] = useState(false);
     const [isPending, setIsPending] = useState(false);
-    
       
     const history = useHistory();
     const classes = useStyles();
@@ -120,12 +121,7 @@ import { AuthContext } from '../contexts/AuthContext';
         history.push('/model-assets')
     }
 
-    const handleModalClose = () => {
-        setInitialAssetsOpen(false);
-    }
-
-    const handleAssetsSave = (e) => {
-        console.log('handle assets save');
+    const handleWalletSave = async (e) => {
         e.preventDefault();
         setIsPending(true);
         const date = new Date();
@@ -135,41 +131,21 @@ import { AuthContext } from '../contexts/AuthContext';
             modelWallet: modelWallet,
             realWalletUpdates: [],
             creationDate: currentDate
-            }
-        
-        const user = currentUser.uid
-        console.log(user);
-        db.collection("users").doc(user).set({
-            doesWalletExist: true,
-            modelWallet: modelWallet,
-            realWalletUpdates: [],
-            creationDate: currentDate
-        }).then(() => {
-            
-        })
-        .catch((error) => {
-            console.error("Error adding document: ", error);
-        });
-
-
-        fetch('http://localhost:8000/user', {
-        method: 'PUT',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(updatedData)
-        }).then(() => {
-        setData(updatedData)
-        setIsPending(false);
-        history.push('/model-assets');
-           })
-        setInitialAssetsOpen(false);
-            
+        }
+        try {
+            await sendRealWalletUpdate(updatedData, currentUser.uid);
+            setIsPending(false);
+            history.push('/model-assets');
+        } catch (error) {
+            console.error("Error occured: ", error);
+        }
+        setModalOpen(false);
     }
 
-    const handleSave = (e) => {
-        console.log('handle save')
+    const handleEdit = (e) => {
         e.preventDefault();
         if (!isBeingEdited) {
-            setInitialAssetsOpen(true);
+            setModalOpen(true);
         }
         else {
             const updatedWallet = {
@@ -177,17 +153,25 @@ import { AuthContext } from '../contexts/AuthContext';
                 modelWallet: modelWallet,
                 realWalletUpdates: data.realWalletUpdates,
                 creationDate: data.creationDate
-                }
+            }
             setIsPending(true);
-            fetch('http://localhost:8000/user', {
-            method: 'PUT',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(updatedWallet)
-            }).then(() => {
-            setData(updatedWallet);
-            setIsPending(false);
-            history.push('/model-assets');
-            }) 
+            db.collection("users").doc(currentUser.uid).set(updatedWallet).then(() => {
+                setData(updatedWallet);
+                setIsPending(false);
+                history.push('/model-assets');
+            })
+            .catch((error) => {
+                console.error("Error occured: ", error);
+            });
+            // fetch('http://localhost:8000/user', {
+            // method: 'PUT',
+            // headers: {'Content-Type': 'application/json'},
+            // body: JSON.stringify(updatedWallet)
+            // }).then(() => {
+            // setData(updatedWallet);
+            // setIsPending(false);
+            // history.push('/model-assets');
+            // }) 
         }
     }
 
@@ -247,15 +231,15 @@ import { AuthContext } from '../contexts/AuthContext';
             }
             <div className="bottom-buttons">
                     <CancelButton onClick={handleCancel}>Cancel</CancelButton>
-                    {!isBeingEdited && modelWallet.length > 0 && <MainButton color="secondary" variant="contained" onClick={handleSave}>Continue</MainButton>}
+                    {!isBeingEdited && modelWallet.length > 0 && <MainButton color="secondary" variant="contained" onClick={handleEdit}>Continue</MainButton>}
                     {!isBeingEdited &&modelWallet.length === 0 &&<MainButton disabled>Continue</MainButton>}
                     {isBeingEdited && modelWallet.length === 0 &&<MainButton disabled>Save</MainButton>}
                     {isBeingEdited && modelWallet.length > 0 && percentageSum !== 100 &&<MainButton disabled>Save</MainButton>}
-                    {isBeingEdited && modelWallet.length > 0 && percentageSum === 100 && <MainButton color="secondary" variant="contained" onClick={handleSave}>Save</MainButton>}
+                    {isBeingEdited && modelWallet.length > 0 && percentageSum === 100 && <MainButton color="secondary" variant="contained" onClick={handleEdit}>Save</MainButton>}
                 </div>
             </form>
             <Modal
-                    open={initialAssetsOpen}
+                    open={modalOpen}
                     aria-labelledby="simple-modal-title"
                     aria-describedby="simple-modal-description"
                     disableBackdropClick>
@@ -264,8 +248,8 @@ import { AuthContext } from '../contexts/AuthContext';
                         <img style={{paddingTop: 50}} src={save} alt="Save Icon"/>
                         <p className="modal-info">Would you like to save your model wallet?</p>
                         <div className="modal-bottom-buttons" style={{paddding: '5px !important'}}>
-                            <CancelButton onClick={handleModalClose}>Cancel</CancelButton>
-                            <MainButton color="secondary" variant="contained" onClick={handleAssetsSave}>Save</MainButton>
+                            <CancelButton onClick={() => setModalOpen(false)}>Cancel</CancelButton>
+                            <MainButton color="secondary" variant="contained" onClick={handleWalletSave}>Save</MainButton>
                         </div>
                       </div>}
                       {percentageSum !== 100 && 
@@ -275,8 +259,7 @@ import { AuthContext } from '../contexts/AuthContext';
                             <ErrorIcon/>
                         </div>
                         <p className="modal-info">Your total model wallet assets percentage is not equal 100%! <br/> Please make adjustments and try again.</p>
-                        <MainButton color="secondary" variant="contained" onClick={handleModalClose}>Continue</MainButton>    
-
+                        <MainButton color="secondary" variant="contained" onClick={() => setModalOpen(false)}>Continue</MainButton>    
                       </div>
                       }
                     </div>
